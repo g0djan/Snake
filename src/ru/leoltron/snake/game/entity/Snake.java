@@ -22,9 +22,9 @@ public class Snake extends FieldObjectMoving {
             body.add(new Point(x, y - i));
     }
 
-    public Snake(int x, int y, Snake snake) {
+    public Snake(Point p, Snake snake) {
         body = snake.body;
-        body.addFirst(new Point(x, y));
+        body.addFirst(new Point(p.x, p.y));
         tail = body.getLast();
         body.removeLast();
     }

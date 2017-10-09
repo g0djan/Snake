@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import lombok.val;
 import ru.leoltron.snake.game.entity.FieldObject;
 import ru.leoltron.snake.game.entity.FieldObjectMoving;
+import ru.leoltron.snake.game.entity.Snake;
 import ru.leoltron.snake.game.generators.AppleGenerator;
 import ru.leoltron.snake.game.generators.FieldGenerator;
 import ru.leoltron.snake.game.generators.SnakeSpawner;
@@ -94,7 +95,8 @@ public class Game {
                 x += movingObject.getVelX();
                 y += movingObject.getVelY();
 
-                movedObjects.add(Pair.create(new Point(x, y), fieldObject));
+                val p = new Point(x, y);
+                movedObjects.add(Pair.create(p, new Snake(p, (Snake)fieldObject)));
                 iterator.remove();
             }
             fieldObject.tick();
