@@ -10,7 +10,7 @@ public class ClassicSnakeSpawner implements SnakeSpawner {
 
     @Override
     public void spawnSnake(Game game) {
-        val coords = game.getRandomFreeCoords();
-        game.addEntity(SnakePart.createSnake());
+        val coords = game.getRandomFreeCoordinates();
+        game.addEntities(SnakePart.createSnake(coords.x, coords.y, DEFAULT_SNAKE_LENGTH));
     }
 }

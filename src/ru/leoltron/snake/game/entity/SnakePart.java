@@ -5,11 +5,9 @@ import lombok.val;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SnakePart extends GameEntity {
+public class SnakePart extends FieldObject {
 
-    public final boolean isHead;
-    private boolean isSpawned = false;
-    private SnakePart prevPart;
+    public  boolean isHead;
 
     public SnakePart(SnakePart snakePart) {
         this(snakePart.x, snakePart.y);
@@ -26,12 +24,12 @@ public class SnakePart extends GameEntity {
     }
 
     @Override
-    public void onCollisionWith(GameEntity entity) {
+    public void onCollisionWith(FieldObject object) {
 
     }
 
     public SnakePart createPrevPart() {
-        if (prevPart != null)
+        if (hasPreviousPart())
             return prevPart.createPrevPart();
 
         return new SnakePart(this);
@@ -47,6 +45,21 @@ public class SnakePart extends GameEntity {
             setSpawned();
     }
 
+    public void MoveTo(int x, int y) {
+        val prevX = this.x;
+        val prevY = this.y;
+
+        this.x = x;
+        this.y = y;
+
+        if (hasPreviousPart())
+            MoveTo(prevX, prevY);
+    }
+
+    public boolean hasPreviousPart() {
+        return prevPart != null;
+    }
+
     public SnakePart setSpawned() {
         prevPart.isSpawned = true;
         return this;
@@ -55,7 +68,7 @@ public class SnakePart extends GameEntity {
     @Override
     public void setDead() {
         super.setDead();
-        if (prevPart != null)
+        if (hasPreviousPart())
             prevPart.setDead();
     }
 

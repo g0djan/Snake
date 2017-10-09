@@ -2,18 +2,15 @@ package ru.leoltron.snake.game;
 
 import lombok.NonNull;
 import lombok.val;
-import ru.leoltron.snake.game.entity.GameEntity;
+import ru.leoltron.snake.game.entity.FieldObject;
+import ru.leoltron.snake.game.entity.FieldObjectMoving;
 import ru.leoltron.snake.game.generators.AppleGenerator;
 import ru.leoltron.snake.game.generators.FieldGenerator;
+import ru.leoltron.snake.game.generators.SnakeSpawner;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
-
-/*Возможно, придется "снимать" состояние поля перед тиком, создавая GameEntity[][], а сами сущности хранить в массиве,
-* после тика каждой убрать из списка, если мертво, после всех тиков повторно сделать снимок поля для
-* обнаружения коллизий, отображения и следующего тика*/
 
 public class Game {
 
@@ -23,14 +20,18 @@ public class Game {
     private final int fieldHeight;
     private final AppleGenerator appleGenerator;
     private final FieldGenerator fieldGenerator;
+    private final SnakeSpawner snakeSpawner;
 
-    private GameEntity[][] fieldState;
+    private FieldObject[][] fieldState;
+    private Map<Point, FieldObject> fieldObjects = new HashMap<>();
 
     public Game(@NonNull AppleGenerator appleGenerator,
                 @NonNull FieldGenerator fieldGenerator,
+                @NonNull SnakeSpawner snakeSpawner,
                 int fieldWidth, int fieldHeight) {
         this.appleGenerator = appleGenerator;
         this.fieldGenerator = fieldGenerator;
+        this.snakeSpawner = snakeSpawner;
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
         startNewGame();
@@ -39,36 +40,47 @@ public class Game {
     private void startNewGame() {
         initField(fieldGenerator);
         appleGenerator.init();
+        snakeSpawner.spawnSnake(this);
     }
 
     private void initField(FieldGenerator generator) {
-        fieldState = new GameEntity[fieldWidth][fieldHeight];
-        val entities = generator.generateField(fieldWidth, fieldHeight);
+        fieldObjects = generator.generateField(fieldWidth, fieldHeight);
     }
 
 
-    public GameEntity getEntityAt(int x, int y) {
+    private void updateFieldState() {
+        fieldState = new FieldObject[fieldWidth][fieldHeight];
+        for (val e : fieldObjects.entrySet())
+    }
+
+
+    public FieldObject getEntityAt(int x, int y) {
         return fieldState[x][y];
     }
 
-    public boolean isWall(int x, int y) {
-        return getEntityAt(x,y) == null;
+    public boolean isFree(int x, int y) {
+        return getEntityAt(x, y) == null;
     }
 
-    /*
+
     public void tick() {
-        for (val entity : getGameEntitiesAndRemoveDead()) {
-            val prevX = entity.getX();
-            val prevY = entity.getY();
-            entity.tick();
-            if (entity.getX() != prevX || entity.getY() != prevY)
-                setEntityAtItsCoordinates(entity);
-        }
-        appleGenerator.tick();
-    }
+        for (val entry : fieldObjects.entrySet()) {
+            val fieldObject = entry.getValue();
+            if(fieldObject instanceof FieldObjectMoving) {
+                int x = entry.getKey().x;
+                int y = entry.getKey().y;
 
-    public final Point getRandomCoordinates() {
-        return new Point(rand.nextInt(fieldWidth), rand.nextInt(fieldHeight));
+                val movingObject = ((FieldObjectMoving) fieldObject);
+                x += movingObject.getVelX();
+                y += movingObject.getVelY();
+
+                fieldObjects.remove()
+            }
+            fieldObject.tick();
+
+        }
+        //snake.tick();
+        appleGenerator.tick();
     }
 
     public final Point getRandomFreeCoordinates() {
@@ -80,11 +92,22 @@ public class Game {
         val coords = new ArrayList<Point>();
         for (int x = 0; x < fieldWidth; x++)
             for (int y = 0; y < fieldHeight; y++)
-                if (isWall(x, y))
+                if (isFree(x, y))
                     coords.add(new Point(x, y));
         return coords;
     }
-*/
 
+
+    public void addEntities(Map<Point, FieldObject> objects) {
+        this.fieldObjects.putAll(objects);
+    }
+
+    public void addEntity(int x, int y, FieldObject object) {
+        addEntity(new Point(x, y), object);
+    }
+
+    public void addEntity(Point coords, FieldObject object) {
+        fieldObjects.put(coords, object);
+    }
 }
 

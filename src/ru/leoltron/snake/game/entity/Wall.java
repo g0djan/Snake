@@ -1,13 +1,12 @@
 package ru.leoltron.snake.game.entity;
 
-public class Wall extends GameEntity {
+public class Wall extends FieldObject {
 
-    public Wall(int x, int y) {
-        super(x, y);
+    public Wall() {
     }
 
     @Override
-    public void onCollisionWith(GameEntity entity) {
-        entity.setDead();
+    public void onCollisionWith(FieldObject object) {
+        object.setDead();
     }
 }

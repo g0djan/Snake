@@ -1,8 +1,10 @@
 package ru.leoltron.snake.game.generators;
 
-import ru.leoltron.snake.game.entity.GameEntity;
-import java.util.List;
+import ru.leoltron.snake.game.entity.FieldObject;
+
+import java.awt.*;
+import java.util.Map;
 
 public interface FieldGenerator {
-    List<GameEntity> generateField(int fieldWidth, int fieldHeight);
+    Map<Point, FieldObject> generateField(int fieldWidth, int fieldHeight);
 }

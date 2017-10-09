@@ -1,29 +1,31 @@
 package ru.leoltron.snake.game.generators;
 
 import lombok.val;
-import ru.leoltron.snake.game.entity.GameEntity;
+import ru.leoltron.snake.game.entity.FieldObject;
 import ru.leoltron.snake.game.entity.Wall;
 
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClassicFieldGenerator implements FieldGenerator {
     @Override
-    public List<GameEntity> generateField(int fieldWidth, int fieldHeight) {
+    public Map<Point, FieldObject> generateField(int fieldWidth, int fieldHeight) {
         val top = 0;
         val bottom = fieldHeight - 1;
         val left = 0;
         val right = fieldWidth - 1;
 
-        val entities = new ArrayList<GameEntity>();
+        val entities = new HashMap<Point, FieldObject>();
         for (int y = top; y < fieldHeight; y++) {
-            entities.add(new Wall(left, y));
-            entities.add(new Wall(right, y));
+            entities.put(new Point(left, y), new Wall());
+            entities.put(new Point(right, y),new Wall());
         }
 
         for (int x = left + 1; x < right; x++) {
-            entities.add(new Wall(x, top));
-            entities.add(new Wall(x, bottom));
+            entities.put(new Point(x, top),new Wall());
+            entities.put(new Point(x, bottom),new Wall());
         }
 
         return entities;
