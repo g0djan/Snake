@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/*Возможно, придется "снимать" состояние поля перед тиком, создавая GameEntity[][], а сами сущности хранить в массиве,
+* после тика каждой убрать из списка, если мертво, после всех тиков повторно сделать снимок поля для
+* обнаружения коллизий, отображения и следующего тика*/
+
 public class Game {
 
     private final Random rand = new Random();
@@ -20,7 +24,7 @@ public class Game {
     private final AppleGenerator appleGenerator;
     private final FieldGenerator fieldGenerator;
 
-    private GameEntity[][] field;
+    private GameEntity[][] fieldState;
 
     public Game(@NonNull AppleGenerator appleGenerator,
                 @NonNull FieldGenerator fieldGenerator,
@@ -38,50 +42,20 @@ public class Game {
     }
 
     private void initField(FieldGenerator generator) {
-        field = new GameEntity[fieldWidth][fieldHeight];
+        fieldState = new GameEntity[fieldWidth][fieldHeight];
         val entities = generator.generateField(fieldWidth, fieldHeight);
-        for (val entity : entities)
-            setEntityAtItsCoordinates(entity);
     }
 
-    public void setEntityAtItsCoordinates(GameEntity entity) {
-        setEntityAt(entity.getX(), entity.getY(), entity);
-    }
 
     public GameEntity getEntityAt(int x, int y) {
-        return field[x][y];
+        return fieldState[x][y];
     }
 
-    private void clearEntityAt(int x, int y) {
-        field[x][y] = null;
+    public boolean isWall(int x, int y) {
+        return getEntityAt(x,y) == null;
     }
 
-
-    private void setEntityAt(int x, int y, GameEntity entity) {
-        if (entity == null)
-            clearEntityAt(x, y);
-        else if (field[x][y] != null) {
-            field[x][y].onCollisionWith(entity);
-        }
-    }
-
-    private List<GameEntity> getGameEntitiesAndRemoveDead() {
-        val entities = new ArrayList<GameEntity>();
-        for (int x = 0; x < fieldWidth; x++)
-            for (int y = 0; y < fieldHeight; y++) {
-                val entity = getEntityAt(x, y);
-                if (entity != null) {
-                    if (!entity.isDead()) entities.add(entity);
-                    else clearEntity(entity);
-                }
-            }
-        return entities;
-    }
-
-    private void clearEntity(GameEntity entity) {
-        clearEntityAt(entity.getX(), entity.getY());
-    }
-
+    /*
     public void tick() {
         for (val entity : getGameEntitiesAndRemoveDead()) {
             val prevX = entity.getX();
@@ -110,9 +84,7 @@ public class Game {
                     coords.add(new Point(x, y));
         return coords;
     }
+*/
 
-    public boolean isWall(int x, int y) {
-        return field[x][y] == null;
-    }
 }
 

@@ -1,17 +1,9 @@
 package ru.leoltron.snake.game.generators;
 
-import ru.leoltron.snake.game.Game;
+public interface AppleGenerator {
+    void tick();
 
-public abstract class AppleGenerator {
-    protected final Game game;
-
-    public AppleGenerator(Game game) {
-        this.game = game;
-    }
-
-    public abstract void tick();
-
-    public void init(){
+    default void init(){
         tick();
     }
 }

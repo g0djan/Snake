@@ -18,7 +18,7 @@ public abstract class GameEntity {
 
     public abstract void onCollisionWith(GameEntity entity);
 
-    public final void setDead() {
+    public void setDead() {
         isDead = true;
     }
 
