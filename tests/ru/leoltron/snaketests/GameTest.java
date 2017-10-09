@@ -1,4 +1,4 @@
 package ru.leoltron.snaketests;
 
-public class Test {
+public class GameTest {
 }

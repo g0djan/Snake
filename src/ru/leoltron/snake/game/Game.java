@@ -1,12 +1,14 @@
 package ru.leoltron.snake.game;
 
 import lombok.NonNull;
+import lombok.SneakyThrows;
 import lombok.val;
 import ru.leoltron.snake.game.entity.FieldObject;
 import ru.leoltron.snake.game.entity.FieldObjectMoving;
 import ru.leoltron.snake.game.generators.AppleGenerator;
 import ru.leoltron.snake.game.generators.FieldGenerator;
 import ru.leoltron.snake.game.generators.SnakeSpawner;
+import ru.leoltron.snake.util.Pair;
 
 import java.awt.*;
 import java.util.*;
@@ -37,6 +39,17 @@ public class Game {
         startNewGame();
     }
 
+    @SneakyThrows
+    private static FieldObject resolveCollision(FieldObject object1, FieldObject object2) {
+        object1.onCollisionWith(object2);
+        object2.onCollisionWith(object1);
+        if (!object1.isDead() && !object2.isDead())
+            throw new CollisionException(object1, object2);
+        if (object1.isDead() && object2.isDead())
+            return null;
+        return object1.isDead() ? object2 : object1;
+    }
+
     private void startNewGame() {
         initField(fieldGenerator);
         appleGenerator.init();
@@ -50,7 +63,11 @@ public class Game {
 
     private void updateFieldState() {
         fieldState = new FieldObject[fieldWidth][fieldHeight];
-        for (val e : fieldObjects.entrySet())
+        for (val e : fieldObjects.entrySet()) {
+            val x = e.getKey().x;
+            val y = e.getKey().y;
+            fieldState[x][y] = e.getValue();
+        }
     }
 
 
@@ -62,11 +79,14 @@ public class Game {
         return getEntityAt(x, y) == null;
     }
 
-
     public void tick() {
-        for (val entry : fieldObjects.entrySet()) {
+        val movedObjects = new ArrayList<Pair<Point, FieldObject>>();
+
+        Iterator<Map.Entry<Point, FieldObject>> iterator = fieldObjects.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Point, FieldObject> entry = iterator.next();
             val fieldObject = entry.getValue();
-            if(fieldObject instanceof FieldObjectMoving) {
+            if (fieldObject instanceof FieldObjectMoving) {
                 int x = entry.getKey().x;
                 int y = entry.getKey().y;
 
@@ -74,12 +94,16 @@ public class Game {
                 x += movingObject.getVelX();
                 y += movingObject.getVelY();
 
-                fieldObjects.remove()
+                movedObjects.add(Pair.create(new Point(x, y), fieldObject));
+                iterator.remove();
             }
             fieldObject.tick();
         }
-        //snake.tick();
+        for (val entry : movedObjects)
+            fieldObjects.merge(entry.getItem1(), entry.getItem2(), Game::resolveCollision);
         appleGenerator.tick();
+
+        updateFieldState();
     }
 
     public final Point getRandomFreeCoordinates() {

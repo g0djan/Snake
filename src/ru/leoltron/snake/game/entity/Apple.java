@@ -1,9 +1,5 @@
 package ru.leoltron.snake.game.entity;
 
-import ru.leoltron.snake.game.Game;
-
-import java.awt.*;
-
 public class Apple extends FieldObject {
 
     @Override
@@ -11,7 +7,4 @@ public class Apple extends FieldObject {
         setDead();
     }
 
-    public static Apple generateAtRandomFreeCoordinates(Game game){
-        return new Apple(game, game.getRandomFreeCoordinates());
-    }
 }

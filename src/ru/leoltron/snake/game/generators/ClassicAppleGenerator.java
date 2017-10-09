@@ -13,7 +13,6 @@ public class ClassicAppleGenerator implements AppleGenerator {
 
     @Override
     public void tick() {
-        if (apple == null || apple.isDead())
-            apple = Apple.generateAtRandomFreeCoordinates(game);
+        game.addEntity(game.getRandomFreeCoordinates(), apple = new Apple());
     }
 }
