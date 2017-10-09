@@ -2,7 +2,6 @@ package ru.leoltron.snake.game.generators;
 
 import lombok.val;
 import ru.leoltron.snake.game.Game;
-import ru.leoltron.snake.game.entity.SnakePart;
 
 public class ClassicSnakeSpawner implements SnakeSpawner {
 

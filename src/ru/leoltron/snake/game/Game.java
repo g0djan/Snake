@@ -77,7 +77,6 @@ public class Game {
                 fieldObjects.remove()
             }
             fieldObject.tick();
-
         }
         //snake.tick();
         appleGenerator.tick();
