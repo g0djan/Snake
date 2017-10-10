@@ -1,18 +1,20 @@
 package ru.leoltron.snake.game.generators;
 
-import ru.leoltron.snake.game.Game;
+import ru.leoltron.snake.game.GameField;
 import ru.leoltron.snake.game.entity.Apple;
 
 public class ClassicAppleGenerator implements AppleGenerator {
-    private final Game game;
     private Apple apple;
 
-    public ClassicAppleGenerator(Game game) {
-        this.game = game;
+    @Override
+    public void onStartNewGame(GameField field) {
+        apple = null;
+        tick(field);
     }
 
     @Override
-    public void tick() {
-        game.addEntity(game.getRandomFreeCoordinates(), apple = new Apple());
+    public void tick(GameField field) {
+        if (apple == null)
+            field.addEntity(field.getRandomFreeCoordinates(), apple = new Apple());
     }
 }

@@ -1,9 +1,9 @@
 package ru.leoltron.snake.game.generators;
 
-public interface AppleGenerator {
-    void tick();
+import ru.leoltron.snake.game.GameField;
 
-    default void init(){
-        tick();
-    }
+public interface AppleGenerator {
+    void onStartNewGame(GameField field);
+
+    void tick(GameField field);
 }
