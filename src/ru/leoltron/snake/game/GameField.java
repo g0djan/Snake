@@ -43,35 +43,26 @@ public class GameField {
         return getEntityAt(new Point(x, y));
     }
 
-    public boolean isFree(Point point) {
-        return getEntityAt(point) == null;
-    }
-
     public boolean isFree(int x, int y) {
         return getEntityAt(x, y) == null;
     }
 
-    public final Point getRandomFreeCoordinates() {
-        val freeCoords = getAllFreeCoordinates();
-        return freeCoords.get(rand.nextInt(freeCoords.size()));
+    public boolean isFree(Point point) {
+        return getEntityAt(point) == null;
     }
 
-    private List<Point> getAllFreeCoordinates() {
-        val coords = new ArrayList<Point>();
+    public final Point getRandomFreeLocation() {
+        val freeLocations = getAllFreeLocations();
+        return freeLocations.get(rand.nextInt(freeLocations.size()));
+    }
+
+    private List<Point> getAllFreeLocations() {
+        val locations = new ArrayList<Point>();
         for (int x = 0; x < fieldWidth; x++)
             for (int y = 0; y < fieldHeight; y++)
                 if (isFree(x, y))
-                    coords.add(new Point(x, y));
-        return coords;
-    }
-
-    public void addEntities(Map<Point, FieldObject> objects) {
-        for (val entry : objects.entrySet())
-            addEntity(entry);
-    }
-
-    public void addEntity(Map.Entry<Point, FieldObject> entry) {
-        addEntity(entry.getKey(), entry.getValue());
+                    locations.add(new Point(x, y));
+        return locations;
     }
 
     public void addEntity(int x, int y, FieldObject object) {
@@ -79,7 +70,11 @@ public class GameField {
     }
 
     public void addEntity(Point coords, FieldObject object) {
-        fieldObjects.merge(coords, object, GameField::resolveCollision);
+        if (new Rectangle(0, 0, fieldWidth, fieldHeight).contains(coords))
+            fieldObjects.merge(coords, object, GameField::resolveCollision);
+        else
+            throw new IndexOutOfBoundsException(String.format("Coords (%d, %d) are out of bounds of the field " +
+                    "(width: %d, height:%d)", coords.x, coords.y, fieldWidth, fieldHeight));
     }
 
     public FieldObject removeEntityAt(Point point) {

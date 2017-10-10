@@ -72,7 +72,7 @@ public class ClassicSnakeController {
     }
 
     public void respawnSnake(GameField gameField) {
-        respawnSnake(gameField, gameField.getRandomFreeCoordinates(), DEFAULT_SNAKE_LENGTH);
+        respawnSnake(gameField, gameField.getRandomFreeLocation(), DEFAULT_SNAKE_LENGTH);
     }
 
     public void setCurrentDirection(Direction direction) {
