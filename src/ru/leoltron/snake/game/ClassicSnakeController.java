@@ -84,4 +84,8 @@ public class ClassicSnakeController {
     public Point getHeadLocation() {
         return body.getFirst();
     }
+
+    public boolean isSnakeDead(GameField field) {
+        return body == null || body.isEmpty() || field.getEntityAt(getHeadLocation()).isDead();
+    }
 }

@@ -69,5 +69,9 @@ public class Game {
     public void setCurrentDirection(Direction direction) {
         classicSnakeController.setCurrentDirection(direction);
     }
+
+    public boolean isGameOver() {
+        return classicSnakeController.isSnakeDead(gameField);
+    }
 }
 
