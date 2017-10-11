@@ -27,10 +27,6 @@ public class GameFieldTests extends Assert {
         Wall wall = new Wall();
         field.addEntity(new Point(wallX, wallY), wall);
         assertSingleFieldAdded(wall, wallX, wallY);
-
-        field = new GameField(field.getFieldWidth(), field.getFieldHeight());
-        field.addEntity(wallX, wallY, wall);
-        assertSingleFieldAdded(wall, wallX, wallY);
     }
 
     private void assertSingleFieldAdded(Wall object, int objectX, int objectY) {
@@ -144,12 +140,9 @@ public class GameFieldTests extends Assert {
         int wallY = 2;
         Wall wall = new Wall();
         field.addEntity(new Point(wallX, wallY), wall);
-        assertSingleFieldAdded(wall, wallX, wallY);
         field.removeEntityAt(new Point(wallX, wallY));
 
-        for (int x = 0; x < field.getFieldWidth(); x++)
-            for (int y = 0; y < field.getFieldHeight(); y++)
-                assertTrue(field.isFree(x, y));
+        assertTrue(field.isFree(wallX, wallY));
 
     }
 

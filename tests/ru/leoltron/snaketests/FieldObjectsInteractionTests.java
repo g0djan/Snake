@@ -24,9 +24,6 @@ public class FieldObjectsInteractionTests extends Assert {
         val snake = new SnakePart(new ClassicSnakeController()).setHead();
         val wall = new Wall();
 
-        assertFalse(snake.isDead());
-        assertFalse(wall.isDead());
-
         collide(snake, wall);
 
         assertTrue(snake.isDead());
@@ -37,9 +34,6 @@ public class FieldObjectsInteractionTests extends Assert {
     public void testSnakeAppleEat() {
         val snake = new SnakePart(new ClassicSnakeController()).setHead();
         val apple = new Apple();
-
-        assertFalse(snake.isDead());
-        assertFalse(apple.isDead());
 
         collide(snake, apple);
 
