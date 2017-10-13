@@ -21,7 +21,6 @@ public class Game {
     private final ClassicSnakeController classicSnakeController;
     private GameField gameField;
 
-
     public Game(@NonNull AppleGenerator appleGenerator,
                 @NonNull GameFieldGenerator gameFieldGenerator,
                 @NonNull ClassicSnakeController classicSnakeController,
@@ -29,12 +28,11 @@ public class Game {
         this.appleGenerator = appleGenerator;
         this.gameFieldGenerator = gameFieldGenerator;
         this.classicSnakeController = classicSnakeController;
-        this.gameField = new GameField(fieldWidth, fieldHeight);
-        startNewGame();
+        gameField = new GameField(fieldWidth, fieldHeight);
     }
 
 
-    private void startNewGame() {
+    public void startNewGame() {
         gameFieldGenerator.generateFieldObjects(gameField);
         appleGenerator.onStartNewGame(gameField);
         classicSnakeController.respawnSnake(gameField);
@@ -72,6 +70,10 @@ public class Game {
 
     public boolean isGameOver() {
         return classicSnakeController.isSnakeDead(gameField);
+    }
+
+    public FieldObject getObjectAt(int x, int y){
+        return gameField.getEntityAt(x, y);
     }
 }
 
