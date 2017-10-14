@@ -3,6 +3,7 @@ package ru.leoltron.snake.game.entity;
 import lombok.Getter;
 import lombok.Setter;
 import ru.leoltron.snake.game.ClassicSnakeController;
+import ru.leoltron.snake.game.Direction;
 
 public class SnakePart extends FieldObject {
 
@@ -10,30 +11,28 @@ public class SnakePart extends FieldObject {
 
     @Getter
     @Setter
-    private boolean isHead = false;
+    private Direction prevDirection;
     @Getter
     @Setter
-    private boolean isTail = false;
+    private Direction nextDirection;
 
     public SnakePart(ClassicSnakeController snakeController) {
         this.snakeController = snakeController;
     }
 
-    public SnakePart setHead() {
-        isHead = true;
-        return this;
+    public boolean isHead(){
+        return nextDirection == null;
     }
 
-    public SnakePart setTail() {
-        isTail = true;
-        return this;
+    public boolean isTail(){
+        return prevDirection == null;
     }
 
     @Override
     public void onCollisionWith(FieldObject object) {
         if (object instanceof Apple)
             snakeController.onAppleEaten();
-        else if (isHead())
+        else
             setDead();
     }
 }

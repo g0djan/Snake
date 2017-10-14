@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.val;
 import ru.leoltron.snake.game.entity.FieldObject;
+import ru.leoltron.snake.util.GamePoint;
 
 import java.awt.*;
 import java.util.*;
@@ -17,7 +18,7 @@ public class GameField {
     private int fieldWidth;
     @Getter
     private int fieldHeight;
-    private Map<Point, FieldObject> fieldObjects = new HashMap<>();
+    private Map<GamePoint, FieldObject> fieldObjects = new HashMap<>();
 
     public GameField(int fieldWidth, int fieldHeight) {
         this.fieldWidth = fieldWidth;
@@ -35,41 +36,41 @@ public class GameField {
         return object1.isDead() ? object2 : object1;
     }
 
-    public FieldObject getEntityAt(Point point) {
+    FieldObject getEntityAt(GamePoint point) {
         return fieldObjects.getOrDefault(point, null);
     }
 
     public FieldObject getEntityAt(int x, int y) {
-        return getEntityAt(new Point(x, y));
+        return getEntityAt(new GamePoint(x, y));
     }
 
     public boolean isFree(int x, int y) {
         return getEntityAt(x, y) == null;
     }
 
-    public boolean isFree(Point point) {
+    public boolean isFree(GamePoint point) {
         return getEntityAt(point) == null;
     }
 
-    public final Point getRandomFreeLocation() {
+    public final GamePoint getRandomFreeLocation() {
         val freeLocations = getAllFreeLocations();
         return freeLocations.get(rand.nextInt(freeLocations.size()));
     }
 
-    private List<Point> getAllFreeLocations() {
-        val locations = new ArrayList<Point>();
+    private List<GamePoint> getAllFreeLocations() {
+        val locations = new ArrayList<GamePoint>();
         for (int x = 0; x < fieldWidth; x++)
             for (int y = 0; y < fieldHeight; y++)
                 if (isFree(x, y))
-                    locations.add(new Point(x, y));
+                    locations.add(new GamePoint(x, y));
         return locations;
     }
 
     public void addEntity(int x, int y, FieldObject object) {
-        addEntity(new Point(x, y), object);
+        addEntity(new GamePoint(x, y), object);
     }
 
-    public void addEntity(Point coords, FieldObject object) {
+    public void addEntity(GamePoint coords, FieldObject object) {
         if (new Rectangle(0, 0, fieldWidth, fieldHeight).contains(coords))
             fieldObjects.merge(coords, object, GameField::resolveCollision);
         else
@@ -77,11 +78,13 @@ public class GameField {
                     "(width: %d, height:%d)", coords.x, coords.y, fieldWidth, fieldHeight));
     }
 
-    public FieldObject removeEntityAt(Point point) {
+    @SuppressWarnings("UnusedReturnValue")
+    public FieldObject removeEntityAt(GamePoint point) {
         return fieldObjects.remove(point);
     }
 
-    public Collection<Map.Entry<Point, FieldObject>> getFieldObjects() {
+    @SuppressWarnings("WeakerAccess")
+    public Collection<Map.Entry<GamePoint, FieldObject>> getFieldObjects() {
         return fieldObjects.entrySet();
     }
 }

@@ -2,26 +2,28 @@ package ru.leoltron.snake.game;
 
 import lombok.val;
 import ru.leoltron.snake.game.entity.SnakePart;
+import ru.leoltron.snake.util.GamePoint;
 
-import java.awt.*;
 import java.util.LinkedList;
 
 public class ClassicSnakeController {
     private static final int DEFAULT_SNAKE_LENGTH = 4;
-    protected LinkedList<Point> body;
+    @SuppressWarnings("WeakerAccess")
+    protected LinkedList<GamePoint> body;
     private int snakePartsGoingToAdd;
     private Direction currentDirection = Direction.UP;
 
     public ClassicSnakeController() {
     }
 
-    private void respawnSnake(GameField field, Point startPoint, int initialLength) {
+    private void respawnSnake(GameField field, GamePoint startGamePoint, int initialLength) {
         if (initialLength < 1)
             throw new IllegalArgumentException("SnakePart length must be positive!");
         clearFieldFromSnake(field);
 
         body = new LinkedList<>();
-        addNewHead(field, startPoint, createSnakePart().setHead().setTail());
+        body.addFirst(startGamePoint);
+        field.addEntity(startGamePoint, new SnakePart(this));
         snakePartsGoingToAdd = initialLength - 1;
 
     }
@@ -39,14 +41,14 @@ public class ClassicSnakeController {
     private void shortenTail(GameField field) {
         field.removeEntityAt(body.removeLast());
         if (!body.isEmpty())
-            ((SnakePart) field.getEntityAt(getTailLocation())).setTail();
+            ((SnakePart) field.getEntityAt(getTailLocation())).setPrevDirection(null);
     }
 
-    private Point getTailLocation() {
+    private GamePoint getTailLocation() {
         return body.getLast();
     }
 
-    public int getSnakeSize() {
+    private int getSnakeSize() {
         return body.size();
     }
 
@@ -54,11 +56,11 @@ public class ClassicSnakeController {
         snakePartsGoingToAdd++;
     }
 
-    public void tick(GameField field) {
+    void tick(GameField field) {
         val headLoc = getHeadLocation();
-        ((SnakePart) field.getEntityAt(headLoc)).setHead(false);
+        ((SnakePart) field.getEntityAt(headLoc)).setNextDirection(currentDirection);
 
-        addNewHead(field, currentDirection.translatePoint(headLoc), createSnakePart().setHead());
+        addNewHead(field);
 
         if (snakePartsGoingToAdd > 0)
             snakePartsGoingToAdd--;
@@ -66,26 +68,31 @@ public class ClassicSnakeController {
             shortenTail(field);
     }
 
-    public void addNewHead(GameField field, Point location, SnakePart part) {
+    private void addNewHead(GameField field) {
+        val newHead = new SnakePart(this);
+        newHead.setPrevDirection(currentDirection.reversed());
+
+        val location = getHeadLocation().translated(currentDirection);
+
         body.addFirst(location);
-        field.addEntity(location, part);
+        field.addEntity(location, newHead);
     }
 
-    public void respawnSnake(GameField gameField) {
+    void respawnSnake(GameField gameField) {
         respawnSnake(gameField, gameField.getRandomFreeLocation(), DEFAULT_SNAKE_LENGTH);
     }
 
-    public void setCurrentDirection(Direction direction) {
-        if (getSnakeSize() > 1 && body.get(1).equals(direction.translatePoint(getHeadLocation())))
+    void setCurrentDirection(Direction direction) {
+        if (getSnakeSize() > 1 && body.get(1).equals(getHeadLocation().translated(direction)))
             return;
         currentDirection = direction;
     }
 
-    public Point getHeadLocation() {
+    private GamePoint getHeadLocation() {
         return body.getFirst();
     }
 
-    public boolean isSnakeDead(GameField field) {
+    boolean isSnakeDead(GameField field) {
         return body == null || body.isEmpty() || field.getEntityAt(getHeadLocation()).isDead();
     }
 }

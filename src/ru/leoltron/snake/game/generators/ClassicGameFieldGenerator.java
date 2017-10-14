@@ -3,8 +3,7 @@ package ru.leoltron.snake.game.generators;
 import lombok.val;
 import ru.leoltron.snake.game.GameField;
 import ru.leoltron.snake.game.entity.Wall;
-
-import java.awt.*;
+import ru.leoltron.snake.util.GamePoint;
 
 public class ClassicGameFieldGenerator implements GameFieldGenerator {
     @Override
@@ -15,13 +14,17 @@ public class ClassicGameFieldGenerator implements GameFieldGenerator {
         val right = field.getFieldWidth() - 1;
 
         for (int y = top; y < field.getFieldHeight(); y++) {
-            field.addEntity(new Point(left, y), new Wall());
-            field.addEntity(new Point(right, y), new Wall());
+            addWallAt(field, left, y);
+            addWallAt(field, right, y);
         }
 
         for (int x = left + 1; x < right; x++) {
-            field.addEntity(new Point(x, top), new Wall());
-            field.addEntity(new Point(x, bottom), new Wall());
+            addWallAt(field, x, top);
+            addWallAt(field, x, bottom);
         }
+    }
+
+    private static void addWallAt(GameField field, int x, int y) {
+        field.addEntity(new GamePoint(x, y), new Wall());
     }
 }

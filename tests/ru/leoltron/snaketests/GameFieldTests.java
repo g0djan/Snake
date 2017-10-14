@@ -8,8 +8,7 @@ import ru.leoltron.snake.game.CollisionException;
 import ru.leoltron.snake.game.GameField;
 import ru.leoltron.snake.game.entity.FieldObject;
 import ru.leoltron.snake.game.entity.Wall;
-
-import java.awt.*;
+import ru.leoltron.snake.util.GamePoint;
 
 public class GameFieldTests extends Assert {
 
@@ -25,7 +24,7 @@ public class GameFieldTests extends Assert {
         int wallX = 1;
         int wallY = 2;
         Wall wall = new Wall();
-        field.addEntity(new Point(wallX, wallY), wall);
+        field.addEntity(new GamePoint(wallX, wallY), wall);
         assertSingleFieldAdded(wall, wallX, wallY);
     }
 
@@ -44,13 +43,13 @@ public class GameFieldTests extends Assert {
         int wallX = field.getFieldWidth() - 1;
         int wallY = field.getFieldHeight() - 1;
 
-        field.addEntity(new Point(wallX, wallY), wall);
+        field.addEntity(new GamePoint(wallX, wallY), wall);
 
         Wall wall2 = new Wall();
         wallX = 0;
         wallY = 0;
 
-        field.addEntity(new Point(wallX, wallY), wall2);
+        field.addEntity(new GamePoint(wallX, wallY), wall2);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -58,7 +57,7 @@ public class GameFieldTests extends Assert {
         Wall wall = new Wall();
         int wallX = 100;
         int wallY = 100;
-        field.addEntity(new Point(wallX, wallY), wall);
+        field.addEntity(new GamePoint(wallX, wallY), wall);
     }
 
     @Test
@@ -67,13 +66,13 @@ public class GameFieldTests extends Assert {
         int wallX = 5;
         int wallY = 8;
         Wall wall = new Wall();
-        field.addEntity(new Point(wallX, wallY), wall);
+        field.addEntity(new GamePoint(wallX, wallY), wall);
 
         for (int x = 0; x < field.getFieldWidth(); x++)
             for (int y = 0; y < field.getFieldHeight(); y++)
                 if (x != wallX || y != wallY) {
                     assertTrue(field.isFree(x, y));
-                    assertTrue(field.isFree(new Point(x, y)));
+                    assertTrue(field.isFree(new GamePoint(x, y)));
                 }
     }
 
@@ -99,7 +98,7 @@ public class GameFieldTests extends Assert {
         Wall wall = new Wall();
         int wallX = -1;
         int wallY = 5;
-        field.addEntity(new Point(wallX, wallY), wall);
+        field.addEntity(new GamePoint(wallX, wallY), wall);
     }
 
 
@@ -108,18 +107,18 @@ public class GameFieldTests extends Assert {
         Wall wall = new Wall();
         int wallX = field.getFieldWidth();
         int wallY = 2;
-        field.addEntity(new Point(wallX, wallY), wall);
+        field.addEntity(new GamePoint(wallX, wallY), wall);
     }
 
     @Test(expected = CollisionException.class)
     public void testCollision() {
-        field.addEntity(new Point(4, 5), new Wall() {
+        field.addEntity(new GamePoint(4, 5), new Wall() {
             @Override
             public void onCollisionWith(FieldObject object) {
 
             }
         });
-        field.addEntity(new Point(4, 5), new Wall() {
+        field.addEntity(new GamePoint(4, 5), new Wall() {
             @Override
             public void onCollisionWith(FieldObject object) {
 
@@ -131,7 +130,7 @@ public class GameFieldTests extends Assert {
     public void testNoCollisions() {
         for (int x = 0; x < field.getFieldWidth(); x++)
             for (int y = 0; y < field.getFieldHeight(); y++)
-                field.addEntity(new Point(x, y), new Wall());
+                field.addEntity(new GamePoint(x, y), new Wall());
     }
 
     @Test
@@ -139,8 +138,8 @@ public class GameFieldTests extends Assert {
         int wallX = 1;
         int wallY = 2;
         Wall wall = new Wall();
-        field.addEntity(new Point(wallX, wallY), wall);
-        field.removeEntityAt(new Point(wallX, wallY));
+        field.addEntity(new GamePoint(wallX, wallY), wall);
+        field.removeEntityAt(new GamePoint(wallX, wallY));
 
         assertTrue(field.isFree(wallX, wallY));
 

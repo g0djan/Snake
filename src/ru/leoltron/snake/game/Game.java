@@ -6,9 +6,9 @@ import ru.leoltron.snake.game.entity.FieldObject;
 import ru.leoltron.snake.game.entity.FieldObjectMoving;
 import ru.leoltron.snake.game.generators.AppleGenerator;
 import ru.leoltron.snake.game.generators.GameFieldGenerator;
+import ru.leoltron.snake.util.GamePoint;
 import ru.leoltron.snake.util.Pair;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -39,11 +39,11 @@ public class Game {
     }
 
     public void tick() {
-        val movedObjects = new ArrayList<Pair<Point, FieldObject>>();
+        val movedObjects = new ArrayList<Pair<GamePoint, FieldObject>>();
 
-        Iterator<Map.Entry<Point, FieldObject>> iterator = gameField.getFieldObjects().iterator();
+        Iterator<Map.Entry<GamePoint, FieldObject>> iterator = gameField.getFieldObjects().iterator();
         while (iterator.hasNext()) {
-            Map.Entry<Point, FieldObject> entry = iterator.next();
+            Map.Entry<GamePoint, FieldObject> entry = iterator.next();
             val fieldObject = entry.getValue();
             if (fieldObject instanceof FieldObjectMoving) {
                 int x = entry.getKey().x;
@@ -53,7 +53,7 @@ public class Game {
                 x += movingObject.getVelX();
                 y += movingObject.getVelY();
 
-                movedObjects.add(Pair.create(new Point(x, y), fieldObject));
+                movedObjects.add(Pair.create(new GamePoint(x, y), fieldObject));
                 iterator.remove();
             }
             fieldObject.tick();

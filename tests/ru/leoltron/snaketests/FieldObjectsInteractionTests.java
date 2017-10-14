@@ -21,7 +21,7 @@ public class FieldObjectsInteractionTests extends Assert {
 
     @Test
     public void testSnakeWallBreak() {
-        val snake = new SnakePart(new ClassicSnakeController()).setHead();
+        val snake = new SnakePart(new ClassicSnakeController());
         val wall = new Wall();
 
         collide(snake, wall);
@@ -32,7 +32,7 @@ public class FieldObjectsInteractionTests extends Assert {
 
     @Test
     public void testSnakeAppleEat() {
-        val snake = new SnakePart(new ClassicSnakeController()).setHead();
+        val snake = new SnakePart(new ClassicSnakeController());
         val apple = new Apple();
 
         collide(snake, apple);

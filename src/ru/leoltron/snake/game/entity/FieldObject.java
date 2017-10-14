@@ -5,10 +5,11 @@ import lombok.Getter;
 public abstract class FieldObject {
 
     @Getter
-    private boolean isDead = false;
+    private boolean isDead;
 
     public abstract void onCollisionWith(FieldObject object);
 
+    @SuppressWarnings("WeakerAccess")
     public void setDead() {
         isDead = true;
     }
