@@ -14,7 +14,7 @@ public class ClassicAppleGenerator implements AppleGenerator {
 
     @Override
     public void tick(GameField field) {
-        if (apple == null)
+        if (apple == null || apple.isDead())
             field.addEntity(field.getRandomFreeLocation(), apple = new Apple());
     }
 }

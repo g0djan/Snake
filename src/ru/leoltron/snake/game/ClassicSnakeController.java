@@ -57,6 +57,8 @@ public class ClassicSnakeController {
     }
 
     void tick(GameField field) {
+        if(isSnakeDead(field)) return;
+
         val headLoc = getHeadLocation();
         ((SnakePart) field.getEntityAt(headLoc)).setNextDirection(currentDirection);
 
