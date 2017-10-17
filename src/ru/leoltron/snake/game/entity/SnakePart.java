@@ -11,21 +11,21 @@ public class SnakePart extends FieldObject {
 
     @Getter
     @Setter
-    private Direction prevDirection;
+    private Direction prevPartDirection;
     @Getter
     @Setter
-    private Direction nextDirection;
+    private Direction nextPartDirection;
 
     public SnakePart(ClassicSnakeController snakeController) {
         this.snakeController = snakeController;
     }
 
     public boolean isHead(){
-        return nextDirection == null;
+        return nextPartDirection == null;
     }
 
     public boolean isTail(){
-        return prevDirection == null;
+        return prevPartDirection == null;
     }
 
     @Override

@@ -5,7 +5,7 @@ import ru.leoltron.snake.game.ClassicSnakeController;
 import ru.leoltron.snake.game.Game;
 import ru.leoltron.snake.game.generators.ClassicAppleGenerator;
 import ru.leoltron.snake.game.generators.ClassicGameFieldGenerator;
-import ru.leoltron.snake.gui.GUI;
+import ru.leoltron.snake.gui.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,14 +16,15 @@ import static ru.leoltron.snake.game.Direction.*;
 
 public class Main {
     private static void setFrame(JFrame frame,
-                                 GUI gui,
+                                 GamePanel gamePanel,
                                  int widthSize,
                                  int heightSize,
                                  KeyListener listener){
-        frame.add(gui);
+        frame.add(gamePanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
         frame.getContentPane().setPreferredSize(new Dimension(widthSize, heightSize));
-        frame.getContentPane().add(gui, BorderLayout.CENTER);
+        frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
         frame.addKeyListener(listener);
@@ -42,7 +43,7 @@ public class Main {
                 fieldWidth,
                 fieldHeight);
         game.startNewGame();
-        val gui = new GUI(fieldWidth, fieldHeight, game);
+        val gui = new GamePanel(fieldWidth, fieldHeight, game);
         val frame = new JFrame();
 
         val listener = new KeyListener() {
@@ -75,7 +76,7 @@ public class Main {
             public void keyReleased(KeyEvent e) {}
         };
         setFrame(frame, gui, widthSize, heightSize, listener);
-        while(true) {
+        while (!game.isGameOver()) {
             gui.tick();
             SwingUtilities.updateComponentTreeUI(frame);
             Thread.sleep(300);
