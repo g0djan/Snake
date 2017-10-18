@@ -28,10 +28,6 @@ public class GUI extends JPanel {
         this.height = height;
     }
 
-    public void tick(){
-        game.tick();
-    }
-
     private String getSnakePartImageFilename(SnakePart snakePart){
         String fileName;
         val nextDirection = snakePart.getNextDirection();
