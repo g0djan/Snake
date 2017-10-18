@@ -1,4 +1,5 @@
-package ru.leoltron.snake.gui;//package ru.leoltron.snake.gui;
+package ru.leoltron.snake.gui;
+
 import lombok.val;
 import ru.leoltron.snake.game.Direction;
 import ru.leoltron.snake.game.Game;
@@ -50,7 +51,7 @@ public class GamePanel extends JPanel {
         this.height = height;
     }
 
-    private static String getSnakePartImageFilename(SnakePart snakePart){
+    private static String getSnakePartImageFilename(SnakePart snakePart) {
         String fileName;
         val nextDirection = snakePart.getNextPartDirection();
         val prevDirection = snakePart.getPrevPartDirection();
