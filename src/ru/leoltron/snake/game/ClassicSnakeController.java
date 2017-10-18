@@ -41,7 +41,7 @@ public class ClassicSnakeController {
     private void shortenTail(GameField field) {
         field.removeEntityAt(body.removeLast());
         if (!body.isEmpty())
-            ((SnakePart) field.getEntityAt(getTailLocation())).setPrevDirection(null);
+            ((SnakePart) field.getEntityAt(getTailLocation())).setPrevPartDirection(null);
     }
 
     private GamePoint getTailLocation() {
@@ -57,10 +57,10 @@ public class ClassicSnakeController {
     }
 
     void tick(GameField field) {
-        if(isSnakeDead(field)) return;
+        if (isSnakeDead(field)) return;
 
         val headLoc = getHeadLocation();
-        ((SnakePart) field.getEntityAt(headLoc)).setNextDirection(currentDirection);
+        ((SnakePart) field.getEntityAt(headLoc)).setNextPartDirection(currentDirection);
 
         addNewHead(field);
 
@@ -72,7 +72,7 @@ public class ClassicSnakeController {
 
     private void addNewHead(GameField field) {
         val newHead = new SnakePart(this);
-        newHead.setPrevDirection(currentDirection.reversed());
+        newHead.setPrevPartDirection(currentDirection.reversed());
 
         val location = getHeadLocation().translated(currentDirection);
 
@@ -81,7 +81,10 @@ public class ClassicSnakeController {
     }
 
     void respawnSnake(GameField gameField) {
-        respawnSnake(gameField, gameField.getRandomFreeLocation(), DEFAULT_SNAKE_LENGTH);
+        respawnSnake(
+                gameField,
+                new GamePoint(3, gameField.getFieldWidth() - 3),
+                DEFAULT_SNAKE_LENGTH);
     }
 
     void setCurrentDirection(Direction direction) {
@@ -95,6 +98,9 @@ public class ClassicSnakeController {
     }
 
     boolean isSnakeDead(GameField field) {
-        return body == null || body.isEmpty() || field.getEntityAt(getHeadLocation()).isDead();
+        return body == null ||
+                body.isEmpty() ||
+                !(field.getEntityAt(getHeadLocation()) instanceof SnakePart) ||
+                field.getEntityAt(getHeadLocation()).isDead();
     }
 }

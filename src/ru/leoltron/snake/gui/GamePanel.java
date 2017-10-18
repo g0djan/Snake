@@ -14,24 +14,47 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import static java.awt.image.AffineTransformOp.TYPE_BILINEAR;
+import static ru.leoltron.snake.game.Direction.*;
 
-public class GUI extends JPanel {
+public class GamePanel extends JPanel {
+
+    private static HashMap<Pair<Direction, Direction>, Double> angleBetweenDirections = new HashMap<>();
+
+    static {
+        angleBetweenDirections.put(Pair.create(DOWN, LEFT), Math.PI);
+        angleBetweenDirections.put(Pair.create(LEFT, DOWN), Math.PI);
+        angleBetweenDirections.put(Pair.create(DOWN, UP), Math.PI);
+        angleBetweenDirections.put(Pair.create(RIGHT, DOWN), Math.PI / 2);
+        angleBetweenDirections.put(Pair.create(DOWN, RIGHT), Math.PI / 2);
+        angleBetweenDirections.put(Pair.create(RIGHT, LEFT), Math.PI / 2);
+        angleBetweenDirections.put(Pair.create(LEFT, UP), 3 * Math.PI / 2);
+        angleBetweenDirections.put(Pair.create(UP, LEFT), 3 * Math.PI / 2);
+        angleBetweenDirections.put(Pair.create(LEFT, RIGHT), 3 * Math.PI / 2);
+    }
+
+    private static double getSnakeImagesRotation(Direction direction1, Direction direction2) {
+        return angleBetweenDirections.getOrDefault(Pair.create(direction1, direction2), 0d);
+    }
+
     private int width;
     private int height;
     private Game game;
 
-    public GUI(int width, int height, Game game){
+    public GamePanel(int width, int height, Game game) {
         this.game = game;
         this.width = width;
         this.height = height;
     }
 
-    private String getSnakePartImageFilename(SnakePart snakePart){
+
+
+    private staticString getSnakePartImageFilename(SnakePart snakePart){
         String fileName;
-        val nextDirection = snakePart.getNextDirection();
-        val prevDirection = snakePart.getPrevDirection();
+        val nextDirection = snakePart.getNextPartDirection();
+        val prevDirection = snakePart.getPrevPartDirection();
         if (snakePart.isHead())
             fileName = String.join(File.separator, "resources", "textures", "snake", "head.png");
         else if (snakePart.isTail())
@@ -43,16 +66,16 @@ public class GUI extends JPanel {
         return fileName;
     }
 
-    private BufferedImage rotateImage(BufferedImage img, Direction dirNext, Direction dirPrev){
-        val x = img.getWidth(null) / 2;
-        val y = img.getHeight(null) / 2;
+    private BufferedImage rotateSnakeImage(BufferedImage image, Direction dirNext, Direction dirPrev) {
+        val imgCenterX = image.getWidth(null) / 2;
+        val imgCenterY = image.getHeight(null) / 2;
         dirNext = dirNext != null ? dirNext : dirPrev.reversed();
         dirPrev = dirPrev != null ? dirPrev : dirNext.reversed();
-        double angle;
-        angle = Direction.getSnakeImagesRotation(dirNext, dirPrev);
-        val tx = AffineTransform.getRotateInstance(angle, x, y);
+        val angle = getSnakeImagesRotation(dirNext, dirPrev);
+
+        val tx = AffineTransform.getRotateInstance(angle, imgCenterX, imgCenterY);
         val op = new AffineTransformOp(tx, TYPE_BILINEAR);
-        return op.filter(img, null);
+        return op.filter(image, null);
     }
 
     private Image getImage(int x, int y) throws IOException {
@@ -69,18 +92,18 @@ public class GUI extends JPanel {
         else if (fieldObject instanceof SnakePart) {
             val snakePart = (SnakePart) fieldObject;
             fileName = getSnakePartImageFilename(snakePart);
-            dirNext = snakePart.getNextDirection();
-            dirPrev = snakePart.getPrevDirection();
-        }
-        else
-            throw new IOException("Incorrect fieldObject");
+            dirNext = snakePart.getNextPartDirection();
+            dirPrev = snakePart.getPrevPartDirection();
+        } else
+            throw new IOException(String.format("Incorrect fieldObject (Object class:%s)", fieldObject.getClass().getName()));
         BufferedImage img = ImageIO.read(new File(fileName));
         if (fieldObject instanceof SnakePart)
-            img = rotateImage(img,dirNext,dirPrev);
+            img = rotateSnakeImage(img, dirNext, dirPrev);
         return img;
     }
 
-    public void paint(Graphics g) {
+    @Override
+    public void paint(Graphics graphics) {
         try {
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
