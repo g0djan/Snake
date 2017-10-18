@@ -29,4 +29,8 @@ public class GamePoint extends Point {
     public GamePoint translated(Direction direction) {
         return new GamePoint(x + direction.dx, y + direction.dy);
     }
+
+    public GamePoint subtract(Point point) {
+        return new GamePoint(x - point.x, y - point.y);
+    }
 }

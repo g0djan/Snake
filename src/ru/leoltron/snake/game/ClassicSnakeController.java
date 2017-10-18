@@ -8,17 +8,23 @@ import java.util.LinkedList;
 
 public class ClassicSnakeController {
     private static final int DEFAULT_SNAKE_LENGTH = 4;
+    private final int snakeLength;
     @SuppressWarnings("WeakerAccess")
     protected LinkedList<GamePoint> body;
     private int snakePartsGoingToAdd;
     private Direction currentDirection = Direction.UP;
 
     public ClassicSnakeController() {
+        this(DEFAULT_SNAKE_LENGTH);
+    }
+
+    public ClassicSnakeController(int snakeLength) {
+        if (snakeLength < 1)
+            throw new IllegalArgumentException("Snake length must be positive!");
+        this.snakeLength = snakeLength;
     }
 
     private void respawnSnake(GameField field, GamePoint startGamePoint, int initialLength) {
-        if (initialLength < 1)
-            throw new IllegalArgumentException("SnakePart length must be positive!");
         clearFieldFromSnake(field);
 
         body = new LinkedList<>();
@@ -32,10 +38,6 @@ public class ClassicSnakeController {
         if (body != null)
             for (val point : body)
                 field.removeEntityAt(point);
-    }
-
-    private SnakePart createSnakePart() {
-        return new SnakePart(this);
     }
 
     private void shortenTail(GameField field) {
@@ -59,15 +61,15 @@ public class ClassicSnakeController {
     void tick(GameField field) {
         if (isSnakeDead(field)) return;
 
-        val headLoc = getHeadLocation();
-        ((SnakePart) field.getEntityAt(headLoc)).setNextPartDirection(currentDirection);
-
-        addNewHead(field);
-
         if (snakePartsGoingToAdd > 0)
             snakePartsGoingToAdd--;
         else
             shortenTail(field);
+
+        val headLoc = getHeadLocation();
+        ((SnakePart) field.getEntityAt(headLoc)).setNextPartDirection(currentDirection);
+
+        addNewHead(field);
     }
 
     private void addNewHead(GameField field) {
@@ -84,7 +86,7 @@ public class ClassicSnakeController {
         respawnSnake(
                 gameField,
                 new GamePoint(3, gameField.getFieldWidth() - 3),
-                DEFAULT_SNAKE_LENGTH);
+                snakeLength);
     }
 
     void setCurrentDirection(Direction direction) {
