@@ -5,6 +5,7 @@ import ru.leoltron.snake.game.Game;
 import ru.leoltron.snake.game.entity.Apple;
 import ru.leoltron.snake.game.entity.SnakePart;
 import ru.leoltron.snake.game.entity.Wall;
+import ru.leoltron.snake.util.Pair;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -49,9 +50,7 @@ public class GamePanel extends JPanel {
         this.height = height;
     }
 
-
-
-    private staticString getSnakePartImageFilename(SnakePart snakePart){
+    private static String getSnakePartImageFilename(SnakePart snakePart){
         String fileName;
         val nextDirection = snakePart.getNextPartDirection();
         val prevDirection = snakePart.getPrevPartDirection();
@@ -110,7 +109,7 @@ public class GamePanel extends JPanel {
                     val img = getImage(x, y);
                     if (img == null)
                         continue;
-                    g.drawImage(img,
+                    graphics.drawImage(img,
                             x * img.getWidth(null),
                             y * img.getHeight(null),
                             null);

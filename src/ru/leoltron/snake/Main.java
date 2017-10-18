@@ -77,7 +77,7 @@ public class Main {
         };
         setFrame(frame, gui, widthSize, heightSize, listener);
         while (!game.isGameOver()) {
-            gui.tick();
+            game.tick();
             SwingUtilities.updateComponentTreeUI(frame);
             Thread.sleep(300);
         }
