@@ -5,6 +5,7 @@ import lombok.val;
 import ru.leoltron.snake.game.Direction;
 import ru.leoltron.snake.game.Game;
 import ru.leoltron.snake.game.entity.Apple;
+import ru.leoltron.snake.game.entity.FieldObject;
 import ru.leoltron.snake.game.entity.SnakePart;
 import ru.leoltron.snake.game.entity.Wall;
 import ru.leoltron.snake.util.Pair;
@@ -17,54 +18,83 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.function.Function;
 
 import static java.awt.image.AffineTransformOp.TYPE_BILINEAR;
 import static ru.leoltron.snake.game.Direction.*;
 
 public class GamePanel extends JPanel {
 
-    private static HashMap<Pair<Direction, Direction>, Double> angleBetweenDirections = new HashMap<>();
+    private static HashMap<Pair<Direction, Direction>, Double> angleToRotateByDirections = new HashMap<>();
 
     static {
-        angleBetweenDirections.put(Pair.create(DOWN, LEFT), Math.PI);
-        angleBetweenDirections.put(Pair.create(LEFT, DOWN), Math.PI);
-        angleBetweenDirections.put(Pair.create(DOWN, UP), Math.PI);
-        angleBetweenDirections.put(Pair.create(RIGHT, DOWN), Math.PI / 2);
-        angleBetweenDirections.put(Pair.create(DOWN, RIGHT), Math.PI / 2);
-        angleBetweenDirections.put(Pair.create(RIGHT, LEFT), Math.PI / 2);
-        angleBetweenDirections.put(Pair.create(LEFT, UP), 3 * Math.PI / 2);
-        angleBetweenDirections.put(Pair.create(UP, LEFT), 3 * Math.PI / 2);
-        angleBetweenDirections.put(Pair.create(LEFT, RIGHT), 3 * Math.PI / 2);
+        angleToRotateByDirections.put(Pair.create(DOWN, LEFT), Math.PI);
+        angleToRotateByDirections.put(Pair.create(LEFT, DOWN), Math.PI);
+        angleToRotateByDirections.put(Pair.create(DOWN, UP), Math.PI);
+        angleToRotateByDirections.put(Pair.create(RIGHT, DOWN), Math.PI / 2);
+        angleToRotateByDirections.put(Pair.create(DOWN, RIGHT), Math.PI / 2);
+        angleToRotateByDirections.put(Pair.create(RIGHT, LEFT), Math.PI / 2);
+        angleToRotateByDirections.put(Pair.create(LEFT, UP), 3 * Math.PI / 2);
+        angleToRotateByDirections.put(Pair.create(UP, LEFT), 3 * Math.PI / 2);
+        angleToRotateByDirections.put(Pair.create(LEFT, RIGHT), 3 * Math.PI / 2);
     }
 
     private static double getSnakeImagesRotation(Direction direction1, Direction direction2) {
-        return angleBetweenDirections.getOrDefault(Pair.create(direction1, direction2), 0d);
+        return angleToRotateByDirections.getOrDefault(Pair.create(direction1, direction2), 0d);
     }
 
-    private static String getSnakePartImageFilename(SnakePart snakePart) {
-        String fileName;
+    private BufferedImage getSnakePartImage(SnakePart snakePart) {
         val nextDirection = snakePart.getNextPartDirection();
         val prevDirection = snakePart.getPrevPartDirection();
+        BufferedImage img;
         if (snakePart.isHead())
-            fileName = String.join(File.separator, "resources", "textures", "snake", "head.png");
+            img = images.get(SnakePart.class).get(1 + game.getTimer() % 2);
         else if (snakePart.isTail())
-            fileName = String.join(File.separator, "resources", "textures", "snake", "tail.png");
+            img = images.get(SnakePart.class).get(4 + game.getTimer() % 3);
         else if (nextDirection.reversed() == prevDirection)
-            fileName = String.join(File.separator, "resources", "textures", "snake", "straight.png");
+            img = images.get(SnakePart.class).get(3);
         else
-            fileName = String.join(File.separator, "resources", "textures", "snake", "bend.png");
-        return fileName;
+            img = images.get(SnakePart.class).get(0);
+        return rotateSnakeImage(img, nextDirection, prevDirection);
     }
 
     private int width;
     private int height;
     private Game game;
+    private HashMap<Class, ArrayList<BufferedImage>> images;
+    private HashMap<Class, Function<FieldObject, BufferedImage>> imageClassToImageGetter;
 
-    public GamePanel(int width, int height, Game game) {
+    private void addImage(Class cls, String... path) throws IOException {
+        images.get(cls).add(ImageIO.read(new File(String.join(File.separator, path))));
+    }
+
+    private void readImages() throws IOException {
+        images = new HashMap<>();
+        images.put(Apple.class, new ArrayList<>());
+        images.put(Wall.class, new ArrayList<>());
+        images.put(SnakePart.class, new ArrayList<>());
+        addImage(Apple.class,"resources", "textures", "apple.png");
+        addImage(Wall.class,"resources", "textures", "brick.png");
+        addImage(SnakePart.class,"resources", "textures", "snake", "bend.png");
+        addImage(SnakePart.class,"resources", "textures", "snake", "head.png");
+        addImage(SnakePart.class,"resources", "textures", "snake", "headTongue.png");
+        addImage(SnakePart.class,"resources", "textures", "snake", "straight.png");
+        addImage(SnakePart.class, "resources", "textures", "snake", "tail.png");
+        addImage(SnakePart.class, "resources", "textures", "snake", "tailRight.png");
+        addImage(SnakePart.class, "resources", "textures", "snake", "tailLeft.png");
+    }
+
+    public GamePanel(int width, int height, Game game) throws IOException {
         this.game = game;
         this.width = width;
         this.height = height;
+        readImages();
+        imageClassToImageGetter = new HashMap<>();
+        imageClassToImageGetter.put(Apple.class, (fObject) -> images.get(Apple.class).get(0));
+        imageClassToImageGetter.put(Wall.class, (fObject) -> images.get(Wall.class).get(0));
+        imageClassToImageGetter.put(SnakePart.class, (fObject) -> getSnakePartImage((SnakePart)fObject));
     }
 
     private BufferedImage rotateSnakeImage(@NonNull BufferedImage image, Direction dirNext, Direction dirPrev) {
@@ -89,22 +119,8 @@ public class GamePanel extends JPanel {
         val fieldObject = game.getObjectAt(x, y);
         if (fieldObject == null)
             return null;
-        else if (fieldObject instanceof Apple)
-            fileName = String.join(File.separator, "resources", "textures", "apple.png");
-        else if (fieldObject instanceof Wall)
-            fileName = String.join(File.separator, "resources", "textures", "brick.png");
-        else if (fieldObject instanceof SnakePart) {
-            val snakePart = (SnakePart) fieldObject;
-            fileName = getSnakePartImageFilename(snakePart);
-            dirNext = snakePart.getNextPartDirection();
-            dirPrev = snakePart.getPrevPartDirection();
-        } else
-            throw new IOException(String.format("Incorrect fieldObject (Object class:%s)",
-                    fieldObject.getClass().getName()));
-        BufferedImage img = ImageIO.read(new File(fileName));
-        if (fieldObject instanceof SnakePart)
-            img = rotateSnakeImage(img, dirNext, dirPrev);
-        return img;
+        val imgGetter = imageClassToImageGetter.get(fieldObject.getClass());
+        return imgGetter.apply(fieldObject);
     }
 
     @Override

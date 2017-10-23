@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 import static ru.leoltron.snake.game.Direction.*;
 
@@ -31,7 +32,7 @@ public class Main {
         frame.setLocationRelativeTo(null);
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
         val fieldWidth = 16;
         val fieldHeight = 16;
         val widthSize = fieldWidth * 64;
