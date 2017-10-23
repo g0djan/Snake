@@ -71,7 +71,6 @@ public class Main {
                         break;
                 }
             }
-
             @Override
             public void keyReleased(KeyEvent e) {}
         };

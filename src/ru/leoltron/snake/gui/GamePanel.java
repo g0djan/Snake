@@ -1,5 +1,6 @@
 package ru.leoltron.snake.gui;
 
+import lombok.NonNull;
 import lombok.val;
 import ru.leoltron.snake.game.Direction;
 import ru.leoltron.snake.game.Game;
@@ -41,16 +42,6 @@ public class GamePanel extends JPanel {
         return angleBetweenDirections.getOrDefault(Pair.create(direction1, direction2), 0d);
     }
 
-    private int width;
-    private int height;
-    private Game game;
-
-    public GamePanel(int width, int height, Game game) {
-        this.game = game;
-        this.width = width;
-        this.height = height;
-    }
-
     private static String getSnakePartImageFilename(SnakePart snakePart) {
         String fileName;
         val nextDirection = snakePart.getNextPartDirection();
@@ -66,7 +57,20 @@ public class GamePanel extends JPanel {
         return fileName;
     }
 
-    private BufferedImage rotateSnakeImage(BufferedImage image, Direction dirNext, Direction dirPrev) {
+    private int width;
+    private int height;
+    private Game game;
+
+    public GamePanel(int width, int height, Game game) {
+        this.game = game;
+        this.width = width;
+        this.height = height;
+    }
+
+    private BufferedImage rotateSnakeImage(@NonNull BufferedImage image, Direction dirNext, Direction dirPrev) {
+        if (dirNext == null && dirPrev == null)
+            return image;
+
         val imgCenterX = image.getWidth(null) / 2;
         val imgCenterY = image.getHeight(null) / 2;
         dirNext = dirNext != null ? dirNext : dirPrev.reversed();
@@ -78,7 +82,7 @@ public class GamePanel extends JPanel {
         return op.filter(image, null);
     }
 
-    private Image getImage(int x, int y) throws IOException {
+    private Image getImageAt(int x, int y) throws IOException {
         String fileName;
         Direction dirNext = null;
         Direction dirPrev = null;
@@ -95,7 +99,8 @@ public class GamePanel extends JPanel {
             dirNext = snakePart.getNextPartDirection();
             dirPrev = snakePart.getPrevPartDirection();
         } else
-            throw new IOException(String.format("Incorrect fieldObject (Object class:%s)", fieldObject.getClass().getName()));
+            throw new IOException(String.format("Incorrect fieldObject (Object class:%s)",
+                    fieldObject.getClass().getName()));
         BufferedImage img = ImageIO.read(new File(fileName));
         if (fieldObject instanceof SnakePart)
             img = rotateSnakeImage(img, dirNext, dirPrev);
@@ -105,19 +110,21 @@ public class GamePanel extends JPanel {
     @Override
     public void paint(Graphics graphics) {
         try {
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
-                    val img = getImage(x, y);
-                    if (img == null)
-                        continue;
-                    graphics.drawImage(img,
-                            x * img.getWidth(null),
-                            y * img.getHeight(null),
-                            null);
-                }
-            }
+            for (int x = 0; x < width; x++)
+                for (int y = 0; y < height; y++)
+                    drawFieldObject(graphics, x, y);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void drawFieldObject(Graphics graphics, int fieldObjX, int fieldObjY) throws IOException {
+        val img = getImageAt(fieldObjX, fieldObjY);
+        if (img == null)
+            return;
+        graphics.drawImage(img,
+                fieldObjX * img.getWidth(null),
+                fieldObjY * img.getHeight(null),
+                null);
     }
 }
