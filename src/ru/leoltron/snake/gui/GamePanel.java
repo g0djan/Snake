@@ -7,7 +7,7 @@ import ru.leoltron.snake.game.entity.SnakePart;
 import ru.leoltron.snake.game.entity.Wall;
 import ru.leoltron.snake.gui.Drawers.IDrawer;
 import ru.leoltron.snake.gui.Drawers.SnakeDrawer;
-import ru.leoltron.snake.gui.Drawers.StaticObjectsDrawer;
+import ru.leoltron.snake.gui.Drawers.StaticObjectDrawer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,17 +19,15 @@ public class GamePanel extends JPanel {
     private int width;
     private int height;
     private Game game;
-    private HashMap<Class, IDrawer> drawers;
+    private HashMap<Class, IDrawer> drawers = new HashMap<>();
 
 
     public GamePanel(int width, int height, Game game) throws IOException {
         this.game = game;
         this.width = width;
         this.height = height;
-        val staticObjectsDrawer = new StaticObjectsDrawer();
-        drawers = new HashMap<>();
-        drawers.put(Apple.class, staticObjectsDrawer);
-        drawers.put(Wall.class, staticObjectsDrawer);
+        drawers.put(Apple.class, new StaticObjectDrawer("resources", "textures", "apple.png"));
+        drawers.put(Wall.class, new StaticObjectDrawer("resources", "textures", "brick.png"));
         drawers.put(SnakePart.class, new SnakeDrawer());
     }
 
