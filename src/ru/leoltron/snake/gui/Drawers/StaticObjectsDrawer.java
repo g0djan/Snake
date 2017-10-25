@@ -19,7 +19,7 @@ public class StaticObjectsDrawer implements IDrawer {
     }
 
     @Override
-    public BufferedImage GetImage(FieldObject fieldObject, int time) {
+    public BufferedImage getImage(FieldObject fieldObject, int time) {
         return images.get(fieldObject.getClass());
     }
 

@@ -17,7 +17,7 @@ import java.util.Map;
 public class Game {
 
     @Getter
-    private int timer;
+    private int time;
     private final GameFieldGenerator gameFieldGenerator;
 
     private final AppleGenerator appleGenerator;
@@ -39,7 +39,7 @@ public class Game {
         gameFieldGenerator.generateFieldObjects(gameField);
         appleGenerator.onStartNewGame(gameField);
         classicSnakeController.respawnSnake(gameField);
-        timer = 0;
+        time = 0;
     }
 
     public void tick() {
@@ -66,7 +66,7 @@ public class Game {
             gameField.addEntity(entry.getItem1(), entry.getItem2());
         appleGenerator.tick(gameField);
         classicSnakeController.tick(gameField);
-        timer++;
+        time++;
     }
 
     public void setCurrentDirection(Direction direction) {

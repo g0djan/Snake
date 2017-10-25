@@ -13,7 +13,6 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import static java.awt.image.AffineTransformOp.TYPE_BILINEAR;
@@ -21,41 +20,50 @@ import static ru.leoltron.snake.game.Direction.*;
 
 public class SnakeDrawer implements IDrawer {
 
-    public SnakeDrawer() throws IOException {
-        images = new ArrayList<>();
-        addImage("resources", "textures", "snake", "bend.png");
-        addImage("resources", "textures", "snake", "head.png");
-        addImage("resources", "textures", "snake", "headTongue.png");
-        addImage("resources", "textures", "snake", "straight.png");
-        addImage( "resources", "textures", "snake", "tail.png");
-        addImage( "resources", "textures", "snake", "tailRight.png");
-        addImage( "resources", "textures", "snake", "tailLeft.png");
-    }
+    private static final BufferedImage BEND = tryGetSnakeImage("bend.png");
+    private static final BufferedImage[] HEADS = {
+            tryGetSnakeImage("head.png"),
+            tryGetSnakeImage("headTongue.png")
+    };
+
+    private static final BufferedImage STRAIGHT = tryGetSnakeImage("straight.png");
+    private static final BufferedImage[] TAILS = {
+            tryGetSnakeImage("tail.png"),
+            tryGetSnakeImage("tailRight.png"),
+            tryGetSnakeImage("tailLeft.png")
+    };
 
     @Override
-    public BufferedImage GetImage(FieldObject fieldObject, int time) {
-        val snakePart = (SnakePart)fieldObject;
+    public BufferedImage getImage(FieldObject fieldObject, int time) {
+        val snakePart = (SnakePart) fieldObject;
         val nextDirection = snakePart.getNextPartDirection();
         val prevDirection = snakePart.getPrevPartDirection();
         BufferedImage img;
         if (snakePart.isHead())
-            img = images.get(1 + time % 2);
+            img = HEADS[time % HEADS.length];
         else if (snakePart.isTail())
-            img = images.get(4 + time % 3);
+            img = TAILS[time % TAILS.length];
         else if (nextDirection.reversed() == prevDirection)
-            img = images.get(3);
+            img = STRAIGHT;
         else
-            img = images.get(0);
-        return rotateSnakeImage(img, nextDirection, prevDirection);
+            img = BEND;
+        return rotateSnakeImage(img, prevDirection, nextDirection);
     }
 
-    private ArrayList<BufferedImage> images;
-
-    private void addImage(String... path) throws IOException {
-        images.add(ImageIO.read(new File(String.join(File.separator, path))));
+    private static BufferedImage getImage(String... path) throws IOException {
+        return ImageIO.read(new File(String.join(File.separator, path)));
     }
 
-    private BufferedImage rotateSnakeImage(@NonNull BufferedImage image, Direction dirNext, Direction dirPrev) {
+    private static BufferedImage tryGetSnakeImage(String imageName) {
+        try {
+            return getImage("resources", "textures", "snake", imageName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private BufferedImage rotateSnakeImage(@NonNull BufferedImage image, Direction dirPrev, Direction dirNext) {
         if (dirNext == null && dirPrev == null)
             return image;
 
