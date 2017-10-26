@@ -5,9 +5,9 @@ import ru.leoltron.snake.game.Game;
 import ru.leoltron.snake.game.entity.Apple;
 import ru.leoltron.snake.game.entity.SnakePart;
 import ru.leoltron.snake.game.entity.Wall;
-import ru.leoltron.snake.gui.Drawers.IDrawer;
-import ru.leoltron.snake.gui.Drawers.SnakeDrawer;
-import ru.leoltron.snake.gui.Drawers.StaticObjectDrawer;
+import ru.leoltron.snake.gui.drawers.IDrawer;
+import ru.leoltron.snake.gui.drawers.SnakeDrawer;
+import ru.leoltron.snake.gui.drawers.StaticObjectDrawer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,26 +31,26 @@ public class GamePanel extends JPanel {
         drawers.put(SnakePart.class, new SnakeDrawer());
     }
 
-    private Image getImageAt(int x, int y) throws IOException {
+    private Image getImageAt(int x, int y) {
         val fieldObject = game.getObjectAt(x, y);
         if (fieldObject == null)
             return null;
         val imgGetter = drawers.get(fieldObject.getClass());
-        return imgGetter.getImage(fieldObject, game.getTime());
+        return imgGetter == null ? null : imgGetter.getImage(fieldObject, game.getTime());
     }
 
     @Override
     public void paint(Graphics graphics) {
-        try {
-            for (int x = 0; x < width; x++)
-                for (int y = 0; y < height; y++)
-                    drawFieldObject(graphics, x, y);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        for (int x = 0; x < width; x++)
+            for (int y = 0; y < height; y++)
+                drawFieldObject(graphics, x, y);
+        if (game.isGameOver())
+            drawCenteredString(graphics, "Game Over",
+                    getWidth() / 2, getHeight() / 2,
+                    getFont());
     }
 
-    private void drawFieldObject(Graphics graphics, int fieldObjX, int fieldObjY) throws IOException {
+    private void drawFieldObject(Graphics graphics, int fieldObjX, int fieldObjY) {
         val img = getImageAt(fieldObjX, fieldObjY);
         if (img == null)
             return;
@@ -58,5 +58,13 @@ public class GamePanel extends JPanel {
                 fieldObjX * img.getWidth(null),
                 fieldObjY * img.getHeight(null),
                 null);
+    }
+
+    private static void drawCenteredString(Graphics g, String text, int centerX, int centerY, Font font) {
+        val metrics = g.getFontMetrics(font);
+        int x = centerX - metrics.stringWidth(text) / 2;
+        int y = (centerY - metrics.getHeight() / 2) + metrics.getAscent();
+        g.setFont(font);
+        g.drawString(text, x, y);
     }
 }

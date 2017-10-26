@@ -1,4 +1,4 @@
-package ru.leoltron.snake.gui.Drawers;
+package ru.leoltron.snake.gui.drawers;
 
 import ru.leoltron.snake.game.entity.FieldObject;
 

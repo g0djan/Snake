@@ -18,6 +18,9 @@ public class Game {
 
     @Getter
     private int time;
+
+    private boolean isPaused;
+
     private final GameFieldGenerator gameFieldGenerator;
 
     private final AppleGenerator appleGenerator;
@@ -36,36 +39,42 @@ public class Game {
 
 
     public void startNewGame() {
+        gameField.clear();
         gameFieldGenerator.generateFieldObjects(gameField);
         appleGenerator.onStartNewGame(gameField);
         classicSnakeController.respawnSnake(gameField);
         time = 0;
+        isPaused = false;
     }
 
     public void tick() {
-        val movedObjects = new ArrayList<Pair<GamePoint, FieldObject>>();
+        if (isGameOver()) return;
 
-        Iterator<Map.Entry<GamePoint, FieldObject>> iterator = gameField.getFieldObjects().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<GamePoint, FieldObject> entry = iterator.next();
-            val fieldObject = entry.getValue();
-            if (fieldObject instanceof FieldObjectMoving) {
-                int x = entry.getKey().x;
-                int y = entry.getKey().y;
+        if (!isPaused) {
+            val movedObjects = new ArrayList<Pair<GamePoint, FieldObject>>();
 
-                val movingObject = ((FieldObjectMoving) fieldObject);
-                x += movingObject.getVelX();
-                y += movingObject.getVelY();
+            Iterator<Map.Entry<GamePoint, FieldObject>> iterator = gameField.getFieldObjects().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<GamePoint, FieldObject> entry = iterator.next();
+                val fieldObject = entry.getValue();
+                if (fieldObject instanceof FieldObjectMoving) {
+                    int x = entry.getKey().x;
+                    int y = entry.getKey().y;
 
-                movedObjects.add(Pair.create(new GamePoint(x, y), fieldObject));
-                iterator.remove();
+                    val movingObject = ((FieldObjectMoving) fieldObject);
+                    x += movingObject.getVelX();
+                    y += movingObject.getVelY();
+
+                    movedObjects.add(Pair.create(new GamePoint(x, y), fieldObject));
+                    iterator.remove();
+                }
+                fieldObject.tick();
             }
-            fieldObject.tick();
+            for (val entry : movedObjects)
+                gameField.addEntity(entry.getItem1(), entry.getItem2());
+            appleGenerator.tick(gameField);
+            classicSnakeController.tick(gameField);
         }
-        for (val entry : movedObjects)
-            gameField.addEntity(entry.getItem1(), entry.getItem2());
-        appleGenerator.tick(gameField);
-        classicSnakeController.tick(gameField);
         time++;
     }
 
@@ -77,8 +86,12 @@ public class Game {
         return classicSnakeController.isSnakeDead(gameField);
     }
 
-    public FieldObject getObjectAt(int x, int y){
-        return gameField.getEntityAt(x, y);
+    public FieldObject getObjectAt(int x, int y) {
+        return gameField.getObjectAt(x, y);
+    }
+
+    public void switchPaused() {
+        isPaused = !isPaused;
     }
 }
 
