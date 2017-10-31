@@ -1,8 +1,10 @@
 package ru.leoltron.snake.gui;
 
 import lombok.val;
+import org.reflections.Reflections;
 import ru.leoltron.snake.game.Game;
 import ru.leoltron.snake.game.entity.Apple;
+import ru.leoltron.snake.game.entity.FieldObject;
 import ru.leoltron.snake.game.entity.SnakePart;
 import ru.leoltron.snake.game.entity.Wall;
 import ru.leoltron.snake.gui.Drawers.IDrawer;
@@ -12,7 +14,9 @@ import ru.leoltron.snake.gui.Drawers.StaticObjectDrawer;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.security.KeyException;
 import java.util.HashMap;
+import java.util.Set;
 
 public class GamePanel extends JPanel {
 
@@ -26,6 +30,16 @@ public class GamePanel extends JPanel {
         this.game = game;
         this.width = width;
         this.height = height;
+        val reflections = new Reflections("ru.leoltron.snake.game.entity");
+        val allClasses = reflections.getSubTypesOf(FieldObject.class);
+        for (val cls: allClasses) {
+            try {
+                if (!drawers.containsKey(cls))
+                    throw new KeyException(String.format("We don't have drawer for %s", cls.toString()));
+            } catch (KeyException e) {
+                e.printStackTrace();
+            }
+        }
         drawers.put(Apple.class, new StaticObjectDrawer("resources", "textures", "apple.png"));
         drawers.put(Wall.class, new StaticObjectDrawer("resources", "textures", "brick.png"));
         drawers.put(SnakePart.class, new SnakeDrawer());
