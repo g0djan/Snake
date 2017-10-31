@@ -29,12 +29,12 @@ public class GameFieldTests extends Assert {
     }
 
     private void assertSingleFieldAdded(Wall object, int objectX, int objectY) {
-        assertTrue(field.getEntityAt(objectX, objectY) == object);
+        assertTrue(field.getObjectAt(objectX, objectY) == object);
 
         for (int x = 0; x < field.getFieldWidth(); x++)
             for (int y = 0; y < field.getFieldHeight(); y++)
                 if (x != objectX || y != objectY)
-                    assertTrue(field.getEntityAt(x, y) == null);
+                    assertTrue(field.getObjectAt(x, y) == null);
     }
 
     @Test

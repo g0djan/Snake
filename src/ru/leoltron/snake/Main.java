@@ -18,13 +18,13 @@ import static ru.leoltron.snake.game.Direction.*;
 public class Main {
     private static void setFrame(JFrame frame,
                                  GamePanel gamePanel,
-                                 int widthSize,
-                                 int heightSize,
-                                 KeyListener listener){
+                                 int panelWidth,
+                                 int panelHeight,
+                                 KeyListener listener) {
         frame.add(gamePanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.getContentPane().add(gamePanel, BorderLayout.CENTER);
-        frame.getContentPane().setPreferredSize(new Dimension(widthSize, heightSize));
+        frame.getContentPane().setPreferredSize(new Dimension(panelWidth, panelHeight));
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
@@ -33,10 +33,10 @@ public class Main {
     }
 
     public static void main(String[] args) throws InterruptedException, IOException {
-        val fieldWidth = 16;
-        val fieldHeight = 16;
-        val widthSize = fieldWidth * 64;
-        val heightSize = fieldHeight * 64;
+        val fieldWidth = 12;
+        val fieldHeight = 12;
+        val panelWidth = fieldWidth * 64;
+        val panelHeight = fieldHeight * 64;
         val game = new Game(
                 new ClassicAppleGenerator(),
                 new ClassicGameFieldGenerator(),
@@ -49,11 +49,12 @@ public class Main {
 
         val listener = new KeyListener() {
             @Override
-            public void keyTyped(KeyEvent e) {}
+            public void keyTyped(KeyEvent e) {
+            }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                switch (e.getKeyCode()){
+                switch (e.getKeyCode()) {
                     case KeyEvent.VK_UP:
                     case KeyEvent.VK_W:
                         game.setCurrentDirection(UP);
@@ -70,13 +71,22 @@ public class Main {
                     case KeyEvent.VK_A:
                         game.setCurrentDirection(LEFT);
                         break;
+                    case KeyEvent.VK_R:
+                        game.startNewGame();
+                        break;
+                    case KeyEvent.VK_P:
+                    case KeyEvent.VK_PAUSE:
+                        game.switchPaused();
+                        break;
                 }
             }
+
             @Override
-            public void keyReleased(KeyEvent e) {}
+            public void keyReleased(KeyEvent e) {
+            }
         };
-        setFrame(frame, gui, widthSize, heightSize, listener);
-        while (!game.isGameOver()) {
+        setFrame(frame, gui, panelWidth, panelHeight, listener);
+        while (true) {
             game.tick();
             SwingUtilities.updateComponentTreeUI(frame);
             Thread.sleep(300);

@@ -1,4 +1,4 @@
-package ru.leoltron.snake.gui.Drawers;
+package ru.leoltron.snake.gui.drawers;
 
 import lombok.NonNull;
 import lombok.val;
@@ -28,9 +28,10 @@ public class SnakeDrawer implements IDrawer {
 
     private static final BufferedImage STRAIGHT = tryGetSnakeImage("straight.png");
     private static final BufferedImage[] TAILS = {
-            tryGetSnakeImage("tail.png"),
             tryGetSnakeImage("tailRight.png"),
-            tryGetSnakeImage("tailLeft.png")
+            tryGetSnakeImage("tail.png"),
+            tryGetSnakeImage("tailLeft.png"),
+            tryGetSnakeImage("tail.png")
     };
 
     @Override

@@ -36,20 +36,20 @@ public class GameField {
         return object1.isDead() ? object2 : object1;
     }
 
-    FieldObject getEntityAt(GamePoint point) {
+    FieldObject getObjectAt(GamePoint point) {
         return fieldObjects.getOrDefault(point, null);
     }
 
-    public FieldObject getEntityAt(int x, int y) {
-        return getEntityAt(new GamePoint(x, y));
+    public FieldObject getObjectAt(int x, int y) {
+        return getObjectAt(new GamePoint(x, y));
     }
 
     public boolean isFree(int x, int y) {
-        return getEntityAt(x, y) == null;
+        return getObjectAt(x, y) == null;
     }
 
     public boolean isFree(GamePoint point) {
-        return getEntityAt(point) == null;
+        return getObjectAt(point) == null;
     }
 
     public final GamePoint getRandomFreeLocation() {
@@ -86,5 +86,9 @@ public class GameField {
     @SuppressWarnings("WeakerAccess")
     public Collection<Map.Entry<GamePoint, FieldObject>> getFieldObjects() {
         return fieldObjects.entrySet();
+    }
+
+    public void clear() {
+        fieldObjects.clear();
     }
 }
