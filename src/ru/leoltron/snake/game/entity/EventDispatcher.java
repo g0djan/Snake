@@ -1,9 +1,9 @@
 package ru.leoltron.snake.game.entity;
 
 
-public final class Observer {
+public final class EventDispatcher {
 
-    private Observer() {}
+    private EventDispatcher() {}
 
     public void addListener()
     {
@@ -12,7 +12,7 @@ public final class Observer {
 
     public void sendMessege()
     {
-        
+
     }
 
 }
