@@ -1,18 +1,22 @@
 package ru.leoltron.snake.game.entity;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class EventDispatcher {
 
+    private static List<FieldObject> listeners = new ArrayList<>();
     private EventDispatcher() {}
 
-    public void addListener()
-    {
-
+    public static void addListener(FieldObject object) {
+        listeners.add(object);
     }
 
-    public void sendMessege()
-    {
-
+    public static void sendMessege() {
+        for (FieldObject object : listeners) {
+            object.reactToEvent();
+        }
     }
 
 }
