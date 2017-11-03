@@ -1,6 +1,7 @@
 package ru.leoltron.snake.game.entity;
 
 import lombok.Getter;
+import ru.leoltron.snake.game.Event;
 
 public abstract class FieldObject {
 
@@ -14,7 +15,7 @@ public abstract class FieldObject {
         isDead = true;
     }
 
-    public void reactToEvent() {}
+    public abstract void reactToEvent(Event event);
 
     public void tick() {
     }
