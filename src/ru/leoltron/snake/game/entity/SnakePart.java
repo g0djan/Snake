@@ -5,6 +5,7 @@ import lombok.Setter;
 import ru.leoltron.snake.game.ClassicSnakeController;
 import ru.leoltron.snake.game.Direction;
 import ru.leoltron.snake.game.Event;
+import ru.leoltron.snake.util.GamePoint;
 
 public class SnakePart extends FieldObject {
 
@@ -17,7 +18,8 @@ public class SnakePart extends FieldObject {
     @Setter
     private Direction nextPartDirection;
 
-    public SnakePart(ClassicSnakeController snakeController) {
+    public SnakePart(GamePoint point, ClassicSnakeController snakeController) {
+        super(point);
         this.snakeController = snakeController;
     }
 

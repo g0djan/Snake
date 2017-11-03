@@ -25,6 +25,8 @@ public class ClassicGameFieldGenerator implements GameFieldGenerator {
     }
 
     private static void addWallAt(GameField field, int x, int y) {
-        field.addEntity(new GamePoint(x, y), new Wall());
+
+        GamePoint location = new GamePoint(x, y);
+        field.addEntity(location, new Wall(location));
     }
 }
