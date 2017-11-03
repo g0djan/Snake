@@ -14,6 +14,8 @@ public abstract class FieldObject {
         isDead = true;
     }
 
+    public void reactToEvent() {}
+
     public void tick() {
     }
 }
