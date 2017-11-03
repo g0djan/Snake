@@ -2,6 +2,7 @@ package ru.leoltron.snake.game;
 
 import lombok.Setter;
 import lombok.val;
+import ru.leoltron.snake.game.entity.EventDispatcher;
 import ru.leoltron.snake.game.entity.SnakePart;
 import ru.leoltron.snake.util.GamePoint;
 
@@ -68,6 +69,7 @@ public class ClassicSnakeController {
 
     public void onAppleEaten() {
         snakePartsGoingToAdd++;
+        EventDispatcher.sendMessage(Event.EatenApple);
     }
 
     void tick(GameField field) {

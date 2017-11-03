@@ -1,5 +1,5 @@
 package ru.leoltron.snake.game;
 
-public class Bot {
-
+public enum Event{
+    EatenApple
 }

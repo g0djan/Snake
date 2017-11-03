@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.leoltron.snake.game.ClassicSnakeController;
 import ru.leoltron.snake.game.Direction;
+import ru.leoltron.snake.game.Event;
 
 public class SnakePart extends FieldObject {
 
@@ -32,7 +33,11 @@ public class SnakePart extends FieldObject {
     public void onCollisionWith(FieldObject object) {
         if (object instanceof Apple)
             snakeController.onAppleEaten();
-        else
+        else if (!(isHead() && object instanceof Bot))
             setDead();
+    }
+
+    @Override
+    public void reactToEvent(Event event) {
     }
 }
