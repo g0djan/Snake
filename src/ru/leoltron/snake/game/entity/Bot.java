@@ -2,6 +2,7 @@ package ru.leoltron.snake.game.entity;
 
 import ru.leoltron.snake.game.Direction;
 import ru.leoltron.snake.game.Event;
+import ru.leoltron.snake.util.GamePoint;
 
 
 public class Bot extends FieldObject{
@@ -9,7 +10,8 @@ public class Bot extends FieldObject{
     private Direction direction;
     private int timeToBeAgressive;
 
-    public Bot(Direction direction){
+    public Bot(GamePoint point, Direction direction){
+        super(point);
         this.direction = direction;
         this.timeToBeAgressive = 0;
     }

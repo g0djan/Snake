@@ -1,5 +1,6 @@
 package ru.leoltron.snake.game.generators;
 
+import lombok.val;
 import ru.leoltron.snake.game.GameField;
 import ru.leoltron.snake.game.entity.Apple;
 
@@ -14,7 +15,9 @@ public class ClassicAppleGenerator implements AppleGenerator {
 
     @Override
     public void tick(GameField field) {
-        if (apple == null || apple.isDead())
-            field.addEntity(field.getRandomFreeLocation(), apple = new Apple());
+        if (apple == null || apple.isDead()) {
+            val location = field.getRandomFreeLocation();
+            field.addEntity(location, apple = new Apple(location));
+        }
     }
 }

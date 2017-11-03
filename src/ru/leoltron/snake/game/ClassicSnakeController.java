@@ -39,7 +39,7 @@ public class ClassicSnakeController {
 
         body = new LinkedList<>();
         body.addFirst(startGamePoint);
-        field.addEntity(startGamePoint, new SnakePart(this));
+        field.addEntity(startGamePoint, new SnakePart(startGamePoint,this));
         snakePartsGoingToAdd = initialLength - 1;
 
     }
@@ -87,7 +87,7 @@ public class ClassicSnakeController {
     }
 
     private void addNewHead(GameField field) {
-        val newHead = new SnakePart(this);
+        val newHead = new SnakePart(getHeadLocation(),this);
         newHead.setPrevPartDirection(currentDirection.reversed());
 
         val location = getHeadLocation().translated(currentDirection);
