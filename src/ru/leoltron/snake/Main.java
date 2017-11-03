@@ -33,7 +33,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws InterruptedException, IOException {
-        val fieldWidth = 12;
+        val fieldWidth = 20;
         val fieldHeight = 12;
         val panelWidth = fieldWidth * 64;
         val panelHeight = fieldHeight * 64;
@@ -89,7 +89,7 @@ public class Main {
         while (true) {
             game.tick();
             SwingUtilities.updateComponentTreeUI(frame);
-            Thread.sleep(300);
+            Thread.sleep(200);
         }
     }
 }
