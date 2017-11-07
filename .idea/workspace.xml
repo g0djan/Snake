@@ -76,7 +76,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FieldObject.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FieldObject.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ru/leoltron/snake/game/entity/FieldObject.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
@@ -103,11 +103,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Wall.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Wall.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/leoltron/snake/game/entity/Wall.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="19" lean-forward="true" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+            <state relative-caret-position="255">
+              <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -151,6 +151,7 @@
         <option value="godjan &lt;g0dj4n@gmail.com&gt;" />
       </list>
     </option>
+    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
@@ -452,11 +453,18 @@
       <option name="project" value="LOCAL" />
       <updated>1510094546414</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="revert and gameField in dispatcher">
+      <created>1510094614089</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1510094614089</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19241000" />
+    <option name="totallyTimeSpent" value="19565000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1381" height="885" extended-state="6" />
@@ -904,19 +912,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/leoltron/snake/game/entity/FieldObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="28" lean-forward="false" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1510093597657" expanded="false" signature="245:278" ph="/WeakerAccess/" />
-            <marker date="1510093597657" expanded="false" signature="304:315" ph=" { " />
-            <marker date="1510093597657" expanded="false" signature="329:335" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/leoltron/snake/game/entity/EventDispatcher.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
@@ -940,9 +935,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/leoltron/snake/game/entity/Wall.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="19" lean-forward="true" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+        <state relative-caret-position="255">
+          <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/leoltron/snake/game/entity/FieldObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="28" lean-forward="false" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1510093597657" expanded="false" signature="245:278" ph="/WeakerAccess/" />
+            <marker date="1510093597657" expanded="false" signature="304:315" ph=" { " />
+            <marker date="1510093597657" expanded="false" signature="329:335" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
