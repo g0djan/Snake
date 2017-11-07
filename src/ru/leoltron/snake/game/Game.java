@@ -3,6 +3,7 @@ package ru.leoltron.snake.game;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.val;
+import ru.leoltron.snake.game.entity.EventDispatcher;
 import ru.leoltron.snake.game.entity.FieldObject;
 import ru.leoltron.snake.game.entity.FieldObjectMoving;
 import ru.leoltron.snake.game.generators.AppleGenerator;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 public class Game {
 
+
     @Getter
     private int time;
 
@@ -26,6 +28,7 @@ public class Game {
     private final AppleGenerator appleGenerator;
     private final ClassicSnakeController classicSnakeController;
     private GameField gameField;
+    private final EventDispatcher eventDispatcher;
 
     public Game(@NonNull AppleGenerator appleGenerator,
                 @NonNull GameFieldGenerator gameFieldGenerator,
@@ -35,6 +38,7 @@ public class Game {
         this.gameFieldGenerator = gameFieldGenerator;
         this.classicSnakeController = classicSnakeController;
         gameField = new GameField(fieldWidth, fieldHeight);
+        eventDispatcher = new EventDispatcher(gameField);
     }
 
 
