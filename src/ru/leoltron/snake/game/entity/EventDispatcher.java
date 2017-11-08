@@ -1,6 +1,7 @@
 package ru.leoltron.snake.game.entity;
 
 
+import org.omg.CORBA.IRObject;
 import ru.leoltron.snake.game.Event;
 import ru.leoltron.snake.game.GameField;
 
@@ -9,18 +10,18 @@ import java.util.List;
 
 public final class EventDispatcher {
 
-    private static List<FieldObject> listeners = new ArrayList<>();
-    private GameField field;
-    public EventDispatcher(GameField field) {
-        this.field = field;
+    private List<IReactable> listeners;
+
+    public EventDispatcher() {
+        listeners = new ArrayList<>();
     }
 
-    public static void addListener(FieldObject object) {
+    public void addListener(IReactable object) {
         listeners.add(object);
     }
 
-    public static void sendMessage(Event message) {
-        for (FieldObject object : listeners) {
+    public void sendMessage(Event message) {
+        for (IReactable object : listeners) {
             object.reactToEvent(message);
         }
     }

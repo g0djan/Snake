@@ -38,7 +38,7 @@ public class Game {
         this.gameFieldGenerator = gameFieldGenerator;
         this.classicSnakeController = classicSnakeController;
         gameField = new GameField(fieldWidth, fieldHeight);
-        eventDispatcher = new EventDispatcher(gameField);
+        eventDispatcher = new EventDispatcher();
     }
 
 
