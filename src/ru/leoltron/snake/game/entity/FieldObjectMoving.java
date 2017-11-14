@@ -1,6 +1,7 @@
 package ru.leoltron.snake.game.entity;
 
 import lombok.Getter;
+import lombok.Setter;
 import ru.leoltron.snake.game.Direction;
 
 import java.util.List;

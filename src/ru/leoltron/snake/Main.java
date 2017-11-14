@@ -4,6 +4,7 @@ import lombok.val;
 import ru.leoltron.snake.game.ClassicSnakeController;
 import ru.leoltron.snake.game.Game;
 import ru.leoltron.snake.game.generators.ClassicAppleGenerator;
+import ru.leoltron.snake.game.generators.ClassicBotGenerator;
 import ru.leoltron.snake.game.generators.ClassicGameFieldGenerator;
 import ru.leoltron.snake.gui.GamePanel;
 
@@ -39,6 +40,7 @@ public class Main {
         val panelHeight = fieldHeight * 64;
         val game = new Game(
                 new ClassicAppleGenerator(),
+                new ClassicBotGenerator(),
                 new ClassicGameFieldGenerator(),
                 new ClassicSnakeController(),
                 fieldWidth,

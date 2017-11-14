@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class Bot extends FieldObjectMoving{
+public class Bot extends FieldObjectMoving implements IReactable{
 
     private Direction direction;
     private int timeToBeAggressive;
@@ -22,6 +22,8 @@ public class Bot extends FieldObjectMoving{
         this.direction = direction;
         this.timeToBeAggressive = 0;
         this.location = location;
+        this.velX = 1;
+        this.velY = 1;
     }
 
     public void renewSnakeLocation(ArrayList<GamePoint> locations){
@@ -43,8 +45,8 @@ public class Bot extends FieldObjectMoving{
     @Override
     public void tick(){
         direction = timeToBeAggressive > 0 ? HuntStrategy() : RandomStrategy();
-        velX = direction.dx * Math.abs(velX);
-        velY = direction.dy * Math.abs(velY);
+        //velX = direction.dx * Math.abs(velX);
+        //velY = direction.dy * Math.abs(velY);
         timeToBeAggressive = Math.max(0, timeToBeAggressive - 1);
     }
 

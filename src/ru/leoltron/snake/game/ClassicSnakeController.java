@@ -122,13 +122,16 @@ public class ClassicSnakeController {
     }
 
     boolean isSnakeDead(GameField field) {
-        for (val snakePart: body) {
-            if (field.getObjectAt(snakePart).isDead())
-                return true;
-        }
-        return body == null ||
+        if (body == null ||
                 body.isEmpty() ||
                 !(field.getObjectAt(getHeadLocation()) instanceof SnakePart) ||
-                field.getObjectAt(getHeadLocation()).isDead();
+                field.getObjectAt(getHeadLocation()).isDead())
+            return true;
+        for (val snakePart: body) {
+            val part = field.getObjectAt(snakePart);
+            if (part.isDead())
+                return true;
+        }
+        return false;
     }
 }

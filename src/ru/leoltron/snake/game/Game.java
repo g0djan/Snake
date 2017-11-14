@@ -7,7 +7,7 @@ import ru.leoltron.snake.game.entity.Bot;
 import ru.leoltron.snake.game.entity.EventDispatcher;
 import ru.leoltron.snake.game.entity.FieldObject;
 import ru.leoltron.snake.game.entity.FieldObjectMoving;
-import ru.leoltron.snake.game.generators.AppleGenerator;
+import ru.leoltron.snake.game.generators.FieldObjectGenerator;
 import ru.leoltron.snake.game.generators.GameFieldGenerator;
 import ru.leoltron.snake.util.GamePoint;
 import ru.leoltron.snake.util.Pair;
@@ -17,7 +17,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class Game {
-
     @Getter
     private int time;
 
@@ -25,16 +24,19 @@ public class Game {
 
     private final GameFieldGenerator gameFieldGenerator;
 
-    private final AppleGenerator appleGenerator;
+    private final FieldObjectGenerator appleGenerator;
+    private final FieldObjectGenerator botGenerator;
     private final ClassicSnakeController classicSnakeController;
     private GameField gameField;
     public final EventDispatcher eventDispatcher;
 
-    public Game(@NonNull AppleGenerator appleGenerator,
+    public Game(@NonNull FieldObjectGenerator appleGenerator,
+                @NonNull FieldObjectGenerator botGenerator,
                 @NonNull GameFieldGenerator gameFieldGenerator,
                 @NonNull ClassicSnakeController classicSnakeController,
                 int fieldWidth, int fieldHeight) {
         this.appleGenerator = appleGenerator;
+        this.botGenerator = botGenerator;
         this.gameFieldGenerator = gameFieldGenerator;
         this.classicSnakeController = classicSnakeController;
         gameField = new GameField(fieldWidth, fieldHeight);
@@ -45,7 +47,8 @@ public class Game {
     public void startNewGame() {
         gameField.clear();
         gameFieldGenerator.generateFieldObjects(gameField);
-        appleGenerator.onStartNewGame(gameField);
+        appleGenerator.onStartNewGame(gameField, eventDispatcher);
+        botGenerator.onStartNewGame(gameField, eventDispatcher);
         classicSnakeController.respawnSnake(gameField);
         time = 0;
         isPaused = false;

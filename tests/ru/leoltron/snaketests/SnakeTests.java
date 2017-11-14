@@ -7,17 +7,19 @@ import ru.leoltron.snake.game.ClassicSnakeController;
 import ru.leoltron.snake.game.Direction;
 import ru.leoltron.snake.game.Game;
 import ru.leoltron.snake.game.GameField;
+import ru.leoltron.snake.game.entity.EventDispatcher;
 import ru.leoltron.snake.game.entity.SnakePart;
-import ru.leoltron.snake.game.generators.AppleGenerator;
+import ru.leoltron.snake.game.generators.ClassicBotGenerator;
+import ru.leoltron.snake.game.generators.FieldObjectGenerator;
 import ru.leoltron.snake.game.generators.ClassicGameFieldGenerator;
 import ru.leoltron.snake.util.GamePoint;
 
 public class SnakeTests extends Assert {
 
-    private class EmptyAppleGenerator implements AppleGenerator {
+    private class EmptyAppleGenerator implements FieldObjectGenerator {
 
         @Override
-        public void onStartNewGame(GameField field) {
+        public void onStartNewGame(GameField field, EventDispatcher dispatcher) {
         }
 
         @Override
@@ -29,6 +31,7 @@ public class SnakeTests extends Assert {
     public void testSnakeSuicide() {
         val game = new Game(
                 new EmptyAppleGenerator(),
+                new ClassicBotGenerator(),
                 new ClassicGameFieldGenerator(),
                 new ClassicSnakeController(5),
                 10, 10);
@@ -43,6 +46,7 @@ public class SnakeTests extends Assert {
     public void testSnakeTailFollowing() {
         val game = new Game(
                 new EmptyAppleGenerator(),
+                new ClassicBotGenerator(),
                 new ClassicGameFieldGenerator(),
                 new ClassicSnakeController(4),
                 10, 10);
@@ -74,6 +78,7 @@ public class SnakeTests extends Assert {
 
         val game = new Game(
                 new EmptyAppleGenerator(),
+                new ClassicBotGenerator(),
                 new ClassicGameFieldGenerator(),
                 new ClassicSnakeController(4),
                 width, height);

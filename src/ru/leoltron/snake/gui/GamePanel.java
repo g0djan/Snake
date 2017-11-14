@@ -3,10 +3,8 @@ package ru.leoltron.snake.gui;
 import lombok.val;
 import org.reflections.Reflections;
 import ru.leoltron.snake.game.Game;
-import ru.leoltron.snake.game.entity.Apple;
-import ru.leoltron.snake.game.entity.FieldObject;
-import ru.leoltron.snake.game.entity.SnakePart;
-import ru.leoltron.snake.game.entity.Wall;
+import ru.leoltron.snake.game.entity.*;
+import ru.leoltron.snake.gui.drawers.BotDrawer;
 import ru.leoltron.snake.gui.drawers.IDrawer;
 import ru.leoltron.snake.gui.drawers.SnakeDrawer;
 import ru.leoltron.snake.gui.drawers.StaticObjectDrawer;
@@ -49,6 +47,7 @@ public class GamePanel extends JPanel {
 
     private void initDrawers() throws IOException {
         drawers.put(Apple.class, new StaticObjectDrawer("resources", "textures", "apple.png"));
+        drawers.put(Bot.class, new BotDrawer("resources", "textures", "bot.png"));
         drawers.put(Wall.class, new StaticObjectDrawer("resources", "textures", "brick.png"));
         drawers.put(SnakePart.class, new SnakeDrawer());
     }
