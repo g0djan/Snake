@@ -4,6 +4,7 @@ import lombok.val;
 import ru.leoltron.snake.util.GamePoint;
 
 import java.util.HashMap;
+import java.util.Random;
 
 public enum Direction {
     UP(0, -1),
@@ -32,5 +33,10 @@ public enum Direction {
 
     public static Direction fromGamePoint(GamePoint point) {
         return pointToDirection.getOrDefault(point.normalized(), null);
+    }
+
+    public static Direction getRandomDirection() {
+        int x = (new Random()).nextInt(4);
+        return Direction.values()[x];
     }
 }

@@ -17,7 +17,6 @@ import java.util.Map;
 
 public class Game {
 
-
     @Getter
     private int time;
 

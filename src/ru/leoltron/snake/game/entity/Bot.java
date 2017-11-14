@@ -3,19 +3,20 @@ package ru.leoltron.snake.game.entity;
 import lombok.val;
 import ru.leoltron.snake.game.Direction;
 import ru.leoltron.snake.game.Event;
+import ru.leoltron.snake.game.Game;
 import ru.leoltron.snake.util.GamePoint;
-
-import java.util.Random;
 
 
 public class Bot extends FieldObject implements IReactable{
 
     private Direction direction;
     private int timeToBeAggressive;
+    private GamePoint location;
 
-    public Bot(Direction direction){
+    public Bot(Direction direction, GamePoint location){
         this.direction = direction;
         this.timeToBeAggressive = 0;
+        this.location = location;
     }
 
     @Override
@@ -41,12 +42,12 @@ public class Bot extends FieldObject implements IReactable{
     }
 
     private Direction RandomStrategy() {
-        /*Random random = new Random();
-        val botLocation =
-        Direction current = Direction.RIGHT;
+        Direction currentDirection = Direction.getRandomDirection();
+        GamePoint newLocatiion;
         do {
-
-        } while ()*/
+            newLocatiion = new GamePoint(location.x + currentDirection.dx,
+                    location.y + currentDirection.dy);
+        } while (false);
         return null;
     }
 
