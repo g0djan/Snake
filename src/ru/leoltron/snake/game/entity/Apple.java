@@ -10,8 +10,7 @@ public class Apple extends FieldObject {
     }
 
     @Override
-    public void reactToEvent(Event event) {
-
+    public void processEvent(Event event) {
     }
 
 }

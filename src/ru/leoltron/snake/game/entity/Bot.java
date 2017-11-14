@@ -29,7 +29,7 @@ public class Bot extends FieldObjectMoving{
     }
 
     @Override
-    public void reactToEvent(Event event){
+    public void processEvent(Event event){
         if (event == Event.EatenApple)
             timeToBeAggressive = 7;
     }

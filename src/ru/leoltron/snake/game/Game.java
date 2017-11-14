@@ -63,7 +63,7 @@ public class Game {
                 val fieldObject = entry.getValue();
                 if (fieldObject instanceof Bot)
                     ((Bot)fieldObject).renewSnakeLocation(classicSnakeController.GetSnakePartsCoordinates());
-                if (fieldObject instanceof FieldObjectMoving) {
+               /* if (fieldObject instanceof FieldObjectMoving) {
                     int x = entry.getKey().x;
                     int y = entry.getKey().y;
 
@@ -74,7 +74,7 @@ public class Game {
 
                     movedObjects.add(Pair.create(new GamePoint(x, y), fieldObject));
                     iterator.remove();
-                }
+                }*/
                 fieldObject.tick();
             }
             for (val entry : movedObjects)
