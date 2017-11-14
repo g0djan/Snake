@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d77382c-d1dc-4a19-971d-cf5266119413" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Snake/ru/leoltron/snake/game/Game.class" afterPath="$PROJECT_DIR$/out/production/Snake/ru/leoltron/snake/game/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Snake/ru/leoltron/snake/game/entity/Bot.class" afterPath="$PROJECT_DIR$/out/production/Snake/ru/leoltron/snake/game/entity/Bot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Snake/ru/leoltron/snake/game/entity/SnakePart.class" afterPath="$PROJECT_DIR$/out/production/Snake/ru/leoltron/snake/game/entity/SnakePart.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Snake/ru/leoltron/snake/util/GamePoint.class" afterPath="$PROJECT_DIR$/out/production/Snake/ru/leoltron/snake/util/GamePoint.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_reflections_reflections_0_9_11.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_reflections_reflections_0_9_11.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/textures/bot.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/leoltron/snake/game/entity/Bot.java" afterPath="$PROJECT_DIR$/src/ru/leoltron/snake/game/entity/Bot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/leoltron/snake/util/Pair.java" afterPath="$PROJECT_DIR$/src/ru/leoltron/snake/util/Pair.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -52,8 +46,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ru/leoltron/snake/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1190">
-              <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+            <state relative-caret-position="204">
+              <caret line="26" column="45" lean-forward="true" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -194,7 +188,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="width" value="2736" />
     <option name="height" value="1824" />
   </component>
@@ -224,6 +218,17 @@
             <path>
               <item name="Snake" type="b2602c69:ProjectViewProjectNode" />
               <item name="Snake" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Snake" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Snake" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Snake" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Snake" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="textures" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Snake" type="b2602c69:ProjectViewProjectNode" />
@@ -564,7 +569,7 @@
       <workItem from="1509523287749" duration="2927000" />
       <workItem from="1509527459095" duration="795000" />
       <workItem from="1509684601399" duration="6924000" />
-      <workItem from="1510693912937" duration="952000" />
+      <workItem from="1510693912937" duration="1990000" />
     </task>
     <task id="LOCAL-00001" summary="checking drawers">
       <created>1509469410541</created>
@@ -643,7 +648,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510680896782</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="need to debug">
+      <created>1510694890290</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1510694890290</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -661,10 +673,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24422000" />
+    <option name="totallyTimeSpent" value="25460000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1368" height="912" extended-state="0" />
+    <frame x="-6" y="-6" width="1381" height="885" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -673,14 +685,14 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35279503" sideWeight="0.5295421" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36503857" sideWeight="0.5288954" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35279503" sideWeight="0.4704579" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36503857" sideWeight="0.47110462" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980132" sideWeight="0.48526078" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980132" sideWeight="0.4973545" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27400294" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27139723" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -714,7 +726,8 @@
     <MESSAGE value="updated 2.0" />
     <MESSAGE value="getSnakeCoordinates" />
     <MESSAGE value="snake dead when meet bot, renew snake coordinates and available directions" />
-    <option name="LAST_COMMIT_MESSAGE" value="snake dead when meet bot, renew snake coordinates and available directions" />
+    <MESSAGE value="need to debug" />
+    <option name="LAST_COMMIT_MESSAGE" value="need to debug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -979,10 +992,10 @@
         <state relative-caret-position="3519">
           <caret line="207" column="14" lean-forward="false" selection-start-line="207" selection-start-column="14" selection-end-line="207" selection-end-column="14" />
           <folding>
-            <marker date="1510694793625" expanded="true" signature="62631:62648" ph="..." />
-            <marker date="1510694793625" expanded="true" signature="62631:62666" ph="..." />
-            <marker date="1510694793625" expanded="true" signature="62631:62679" ph="..." />
-            <marker date="1510694793625" expanded="true" signature="62631:62694" ph="..." />
+            <marker date="1510696180345" expanded="true" signature="62216:62233" ph="..." />
+            <marker date="1510696180345" expanded="true" signature="62216:62251" ph="..." />
+            <marker date="1510696180345" expanded="true" signature="62216:62264" ph="..." />
+            <marker date="1510696180345" expanded="true" signature="62216:62279" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1106,8 +1119,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/leoltron/snake/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1190">
-          <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+        <state relative-caret-position="204">
+          <caret line="26" column="45" lean-forward="true" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
           <folding />
         </state>
       </provider>
