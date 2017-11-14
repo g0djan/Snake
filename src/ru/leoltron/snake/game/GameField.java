@@ -86,6 +86,7 @@ public class GameField {
 
     @SuppressWarnings("UnusedReturnValue")
     public FieldObject removeEntityAt(GamePoint point) {
+        locationOfFieldObjects.get(fieldObjects.get(point).getClass()).remove(point);
         return fieldObjects.remove(point);
     }
 

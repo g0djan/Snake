@@ -3,6 +3,7 @@ package ru.leoltron.snake.game.entity;
 import lombok.val;
 import ru.leoltron.snake.game.Direction;
 import ru.leoltron.snake.game.Event;
+import ru.leoltron.snake.util.GamePoint;
 
 import java.util.Random;
 
@@ -35,7 +36,9 @@ public class Bot extends FieldObject implements IReactable{
         timeToBeAggressive = Math.max(0, timeToBeAggressive - 1);
     }
 
-
+    private int manhattanDistance(GamePoint a, GamePoint b) {
+        return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+    }
 
     private Direction RandomStrategy() {
         /*Random random = new Random();
