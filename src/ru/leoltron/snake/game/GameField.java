@@ -105,4 +105,15 @@ public class GameField {
         }
         return locationOfFieldObjects.get(clazz);
     }
+
+    public List<Direction> getAvailableDirection(GamePoint point) {
+        List<Direction> directions = new ArrayList<>();
+        for (val dir : Direction.values()) {
+            val newPoint = point.add((new GamePoint(dir.dx, dir.dy)));
+            if (!fieldObjects.containsKey(newPoint)) {
+                directions.add(dir);
+            }
+        }
+        return directions;
+    }
 }
