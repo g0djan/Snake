@@ -12,7 +12,6 @@ public class Wall extends FieldObject {
     }
 
     @Override
-    public void reactToEvent(Event event) {
-
+    public void processEvent(Event event) {
     }
 }

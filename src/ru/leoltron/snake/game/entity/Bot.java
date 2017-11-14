@@ -31,7 +31,7 @@ public class Bot extends FieldObjectMoving implements IReactable{
     }
 
     @Override
-    public void reactToEvent(Event event){
+    public void processEvent(Event event){
         if (event == Event.EatenApple)
             timeToBeAggressive = 7;
     }
