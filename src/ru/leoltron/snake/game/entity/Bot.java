@@ -8,6 +8,7 @@ import ru.leoltron.snake.util.GamePoint;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class Bot extends FieldObjectMoving{
@@ -47,21 +48,22 @@ public class Bot extends FieldObjectMoving{
         timeToBeAggressive = Math.max(0, timeToBeAggressive - 1);
     }
 
-    private int manhattanDistance(GamePoint a, GamePoint b) {
-        return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
-    }
-
     private Direction RandomStrategy() {
-        Direction currentDirection = Direction.getRandomDirection();
-        GamePoint newLocatiion;
-        do {
-            newLocatiion = new GamePoint(location.x + currentDirection.dx,
-                    location.y + currentDirection.dy);
-        } while (false);
-        return null;
+        return availableDirections.get(new Random().nextInt(availableDirections.size()));
     }
 
     private Direction HuntStrategy() {
-        return null;
+        Direction bestDirection = Direction.UP;
+        int distance = 1000 * 1000 * 1000;
+        for (val dir : availableDirections) {
+            for (val location : snakeLocation) {
+                val newLocation = location.add(new GamePoint(dir.dx, dir.dy));
+                if (distance > newLocation.manhattanDistance(location)) {
+                    bestDirection = dir;
+                    distance = newLocation.manhattanDistance(location);
+                }
+            }
+        }
+        return bestDirection;
     }
 }

@@ -38,4 +38,8 @@ public class GamePoint extends Point {
     public GamePoint subtract(Point point) {
         return new GamePoint(x - point.x, y - point.y);
     }
+
+    public int manhattanDistance(GamePoint p) {
+        return Math.abs(x - p.x) + Math.abs(y - p.y);
+    }
 }
