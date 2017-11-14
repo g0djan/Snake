@@ -6,7 +6,9 @@ import ru.leoltron.snake.game.entity.EventDispatcher;
 import ru.leoltron.snake.game.entity.SnakePart;
 import ru.leoltron.snake.util.GamePoint;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class ClassicSnakeController {
     private static final int DEFAULT_SNAKE_LENGTH = 4;
@@ -30,6 +32,12 @@ public class ClassicSnakeController {
         if (snakeLength < 1)
             throw new IllegalArgumentException("Snake length must be positive!");
         this.snakeLength = snakeLength;
+    }
+
+    public ArrayList<GamePoint> GetSnakePartsCoordinates(){
+        val coordinates = new ArrayList<GamePoint>();
+        coordinates.addAll(body);
+        return coordinates;
     }
 
     private void respawnSnake(GameField field, GamePoint startGamePoint, int initialLength) {

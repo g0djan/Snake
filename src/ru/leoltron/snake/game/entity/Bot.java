@@ -7,7 +7,7 @@ import ru.leoltron.snake.game.Game;
 import ru.leoltron.snake.util.GamePoint;
 
 
-public class Bot extends FieldObject implements IReactable{
+public class Bot extends FieldObjectMoving{
 
     private Direction direction;
     private int timeToBeAggressive;

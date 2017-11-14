@@ -74,14 +74,18 @@ public class GameField {
     public void addEntity(GamePoint coords, FieldObject object) {
         if (new Rectangle(0, 0, fieldWidth, fieldHeight).contains(coords)) {
             fieldObjects.merge(coords, object, GameField::resolveCollision);
-            if (!locationOfFieldObjects.containsKey(object.getClass())) {
-                locationOfFieldObjects.put(object.getClass(), new HashSet<>());
-            }
-            locationOfFieldObjects.get(object.getClass()).add(coords);
+            AddToLocationOfFieldObjects(coords, object);
         }
         else
             throw new IndexOutOfBoundsException(String.format("Coords (%d, %d) are out of bounds of the field " +
                     "(width: %d, height:%d)", coords.x, coords.y, fieldWidth, fieldHeight));
+    }
+
+    private void AddToLocationOfFieldObjects(GamePoint coords, FieldObject object) {
+        if (!locationOfFieldObjects.containsKey(object.getClass())) {
+            locationOfFieldObjects.put(object.getClass(), new HashSet<>());
+        }
+        locationOfFieldObjects.get(object.getClass()).add(coords);
     }
 
     @SuppressWarnings("UnusedReturnValue")
