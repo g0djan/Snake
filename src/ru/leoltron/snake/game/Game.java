@@ -28,7 +28,7 @@ public class Game {
     private final AppleGenerator appleGenerator;
     private final ClassicSnakeController classicSnakeController;
     private GameField gameField;
-    private final EventDispatcher eventDispatcher;
+    public final EventDispatcher eventDispatcher;
 
     public Game(@NonNull AppleGenerator appleGenerator,
                 @NonNull GameFieldGenerator gameFieldGenerator,

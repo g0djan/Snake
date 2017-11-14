@@ -19,6 +19,7 @@ public class GameField {
     @Getter
     private int fieldHeight;
     private Map<GamePoint, FieldObject> fieldObjects = new HashMap<>();
+    private Map<Class, HashSet<GamePoint>> locationOfFieldObjects = new HashMap<>();
 
     public GameField(int fieldWidth, int fieldHeight) {
         this.fieldWidth = fieldWidth;
@@ -71,8 +72,13 @@ public class GameField {
     }
 
     public void addEntity(GamePoint coords, FieldObject object) {
-        if (new Rectangle(0, 0, fieldWidth, fieldHeight).contains(coords))
+        if (new Rectangle(0, 0, fieldWidth, fieldHeight).contains(coords)) {
             fieldObjects.merge(coords, object, GameField::resolveCollision);
+            if (!locationOfFieldObjects.containsKey(object.getClass())) {
+                locationOfFieldObjects.put(object.getClass(), new HashSet<>());
+            }
+            locationOfFieldObjects.get(object.getClass()).add(coords);
+        }
         else
             throw new IndexOutOfBoundsException(String.format("Coords (%d, %d) are out of bounds of the field " +
                     "(width: %d, height:%d)", coords.x, coords.y, fieldWidth, fieldHeight));
@@ -90,5 +96,12 @@ public class GameField {
 
     public void clear() {
         fieldObjects.clear();
+    }
+
+    public HashSet<GamePoint> getLocationOfFieldObject(Class clazz) {
+        if (!locationOfFieldObjects.containsKey(clazz)) {
+            return new HashSet<>();
+        }
+        return locationOfFieldObjects.get(clazz);
     }
 }

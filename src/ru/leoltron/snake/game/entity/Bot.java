@@ -1,23 +1,26 @@
 package ru.leoltron.snake.game.entity;
 
+import lombok.val;
 import ru.leoltron.snake.game.Direction;
 import ru.leoltron.snake.game.Event;
 
+import java.util.Random;
 
-public class Bot extends FieldObject{
+
+public class Bot extends FieldObject implements IReactable{
 
     private Direction direction;
-    private int timeToBeAgressive;
+    private int timeToBeAggressive;
 
     public Bot(Direction direction){
         this.direction = direction;
-        this.timeToBeAgressive = 0;
+        this.timeToBeAggressive = 0;
     }
 
     @Override
     public void reactToEvent(Event event){
         if (event == Event.EatenApple)
-            timeToBeAgressive = 7;
+            timeToBeAggressive = 7;
     }
 
     @Override
@@ -28,11 +31,19 @@ public class Bot extends FieldObject{
 
     @Override
     public void tick(){
-        direction = timeToBeAgressive > 0 ? HuntStrategy() : RandomStartegy();
-        timeToBeAgressive = Math.max(0, timeToBeAgressive - 1);
+        direction = timeToBeAggressive > 0 ? HuntStrategy() : RandomStrategy();
+        timeToBeAggressive = Math.max(0, timeToBeAggressive - 1);
     }
 
-    private Direction RandomStartegy() {
+
+
+    private Direction RandomStrategy() {
+        /*Random random = new Random();
+        val botLocation =
+        Direction current = Direction.RIGHT;
+        do {
+
+        } while ()*/
         return null;
     }
 

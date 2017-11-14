@@ -69,7 +69,7 @@ public class ClassicSnakeController {
 
     public void onAppleEaten() {
         snakePartsGoingToAdd++;
-        EventDispatcher.sendMessage(Event.EatenApple);
+        //EventDispatcher.sendMessage(Event.EatenApple);
     }
 
     void tick(GameField field) {
