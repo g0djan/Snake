@@ -44,9 +44,11 @@ public class Bot extends FieldObjectMoving{
 
     @Override
     public void tick(){
-        //direction = timeToBeAggressive > 0 ? HuntStrategy() : RandomStrategy();
-        //velX = direction.dx * Math.abs(velX);
-        //velY = direction.dy * Math.abs(velY);
+        direction = timeToBeAggressive > 0 ? HuntStrategy() : RandomStrategy();
+        botLocation.x += direction.dx;
+        botLocation.y += direction.dy;
+        velX = direction.dx * Math.abs(velX);
+        velY = direction.dy * Math.abs(velY);
         timeToBeAggressive = Math.max(0, timeToBeAggressive - 1);
     }
 

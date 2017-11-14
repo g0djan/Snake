@@ -16,6 +16,6 @@ public class BotDrawer implements IDrawer{
 
     @Override
     public BufferedImage getImage(FieldObject fieldObject, int time) {
-        return null;
+        return image;
     }
 }
