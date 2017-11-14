@@ -6,17 +6,25 @@ import ru.leoltron.snake.game.Event;
 import ru.leoltron.snake.game.Game;
 import ru.leoltron.snake.util.GamePoint;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Bot extends FieldObjectMoving{
 
     private Direction direction;
     private int timeToBeAggressive;
     private GamePoint location;
+    private ArrayList<GamePoint> snakeLocation;
 
     public Bot(Direction direction, GamePoint location){
         this.direction = direction;
         this.timeToBeAggressive = 0;
         this.location = location;
+    }
+
+    public void renewSnakeLocation(ArrayList<GamePoint> locations){
+        snakeLocation = locations;
     }
 
     @Override
@@ -34,6 +42,8 @@ public class Bot extends FieldObjectMoving{
     @Override
     public void tick(){
         direction = timeToBeAggressive > 0 ? HuntStrategy() : RandomStrategy();
+        velX = direction.dx * Math.abs(velX);
+        velY = direction.dy * Math.abs(velY);
         timeToBeAggressive = Math.max(0, timeToBeAggressive - 1);
     }
 

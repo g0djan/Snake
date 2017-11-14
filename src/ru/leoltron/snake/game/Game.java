@@ -3,6 +3,7 @@ package ru.leoltron.snake.game;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.val;
+import ru.leoltron.snake.game.entity.Bot;
 import ru.leoltron.snake.game.entity.EventDispatcher;
 import ru.leoltron.snake.game.entity.FieldObject;
 import ru.leoltron.snake.game.entity.FieldObjectMoving;
@@ -60,11 +61,14 @@ public class Game {
             while (iterator.hasNext()) {
                 Map.Entry<GamePoint, FieldObject> entry = iterator.next();
                 val fieldObject = entry.getValue();
+                if (fieldObject instanceof Bot)
+                    ((Bot)fieldObject).renewSnakeLocation(classicSnakeController.GetSnakePartsCoordinates());
                 if (fieldObject instanceof FieldObjectMoving) {
                     int x = entry.getKey().x;
                     int y = entry.getKey().y;
 
                     val movingObject = ((FieldObjectMoving) fieldObject);
+                    movingObject.renewAvailableDirections(gameField.getAvailableDirection(new GamePoint(x, y)));
                     x += movingObject.getVelX();
                     y += movingObject.getVelY();
 
