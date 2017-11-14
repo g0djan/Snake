@@ -11,17 +11,17 @@ import java.util.List;
 import java.util.Random;
 
 
-public class Bot extends FieldObjectMoving implements IReactable{
+public class Bot extends FieldObjectMoving{
 
     private Direction direction;
     private int timeToBeAggressive;
-    private GamePoint location;
+    private GamePoint botLocation;
     private ArrayList<GamePoint> snakeLocation;
 
     public Bot(Direction direction, GamePoint location){
         this.direction = direction;
         this.timeToBeAggressive = 0;
-        this.location = location;
+        this.botLocation = location;
         this.velX = 1;
         this.velY = 1;
     }
@@ -44,7 +44,7 @@ public class Bot extends FieldObjectMoving implements IReactable{
 
     @Override
     public void tick(){
-        direction = timeToBeAggressive > 0 ? HuntStrategy() : RandomStrategy();
+        //direction = timeToBeAggressive > 0 ? HuntStrategy() : RandomStrategy();
         //velX = direction.dx * Math.abs(velX);
         //velY = direction.dy * Math.abs(velY);
         timeToBeAggressive = Math.max(0, timeToBeAggressive - 1);
@@ -59,7 +59,7 @@ public class Bot extends FieldObjectMoving implements IReactable{
         int distance = 1000 * 1000 * 1000;
         for (val dir : availableDirections) {
             for (val location : snakeLocation) {
-                val newLocation = location.add(new GamePoint(dir.dx, dir.dy));
+                val newLocation = botLocation.add(new GamePoint(dir.dx, dir.dy));
                 if (distance > newLocation.manhattanDistance(location)) {
                     bestDirection = dir;
                     distance = newLocation.manhattanDistance(location);
