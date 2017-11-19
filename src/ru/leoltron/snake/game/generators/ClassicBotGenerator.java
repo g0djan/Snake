@@ -13,8 +13,7 @@ public class ClassicBotGenerator implements FieldObjectGenerator{
 
     @Override
     public void onStartNewGame(GameField field, EventDispatcher dispatcher) {
-        GamePoint location = field.getRandomFreeLocation();
-        location = new GamePoint(18, 10);
+        val location = new GamePoint(10, 5);
         val bot = new Bot(Direction.UP, location);
         field.addEntity(location, bot);
         dispatcher.addListener(bot);

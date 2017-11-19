@@ -23,7 +23,7 @@ public class Bot extends FieldObjectMoving{
         this.timeToBeAggressive = 0;
         this.botLocation = location;
         this.velX = 1;
-        this.velY = 1;
+        this.velY = 0;
     }
 
     public void renewSnakeLocation(ArrayList<GamePoint> locations){
@@ -38,17 +38,17 @@ public class Bot extends FieldObjectMoving{
 
     @Override
     public void onCollisionWith(FieldObject object) {
-        if (object instanceof SnakePart && ((SnakePart) object).isHead())
+        if (object instanceof Wall)
             setDead();
     }
 
     @Override
     public void tick(){
         direction = timeToBeAggressive > 0 ? HuntStrategy() : RandomStrategy();
-        botLocation.x += direction.dx;
-        botLocation.y += direction.dy;
-        velX = direction.dx * Math.abs(velX);
-        velY = direction.dy * Math.abs(velY);
+        botLocation.x += velX;
+        botLocation.y += velY;
+        velX = direction.dx;
+        velY = direction.dy;
         timeToBeAggressive = Math.max(0, timeToBeAggressive - 1);
     }
 

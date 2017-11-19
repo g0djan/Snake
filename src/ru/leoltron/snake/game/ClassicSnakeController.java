@@ -129,7 +129,8 @@ public class ClassicSnakeController {
             return true;
         for (val snakePart: body) {
             val part = field.getObjectAt(snakePart);
-            if (part.isDead())
+
+            if (!(part instanceof  SnakePart) || part.isDead())
                 return true;
         }
         return false;

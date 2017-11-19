@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.val;
 import ru.leoltron.snake.game.entity.FieldObject;
+import ru.leoltron.snake.game.entity.SnakePart;
 import ru.leoltron.snake.util.GamePoint;
 
 import java.awt.*;
@@ -114,7 +115,8 @@ public class GameField {
         List<Direction> directions = new ArrayList<>();
         for (val dir : Direction.values()) {
             val newPoint = point.add((new GamePoint(dir.dx, dir.dy)));
-            if (!fieldObjects.containsKey(newPoint)) {
+            if (!fieldObjects.containsKey(newPoint) ||
+                    fieldObjects.get(newPoint) instanceof SnakePart) {
                 directions.add(dir);
             }
         }
