@@ -21,8 +21,8 @@
       <file leaf-file-name="ClassicSnakeController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ru/leoltron/snake/game/ClassicSnakeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="24" column="34" lean-forward="false" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
+            <state relative-caret-position="306">
+              <caret line="26" column="31" lean-forward="true" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -570,7 +570,7 @@
       <workItem from="1509527459095" duration="795000" />
       <workItem from="1509684601399" duration="6924000" />
       <workItem from="1510693912937" duration="952000" />
-      <workItem from="1511070087320" duration="5242000" />
+      <workItem from="1511070087320" duration="5348000" />
     </task>
     <task id="LOCAL-00001" summary="checking drawers">
       <created>1509469410541</created>
@@ -691,7 +691,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511076689622</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="undefined behavior bot near with walls and it still doesn't hunt">
+      <created>1511076909562</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1511076909562</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -709,7 +716,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29664000" />
+    <option name="totallyTimeSpent" value="29770000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1368" height="912" extended-state="0" />
@@ -1133,8 +1140,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/leoltron/snake/game/ClassicSnakeController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="24" column="34" lean-forward="false" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
+        <state relative-caret-position="306">
+          <caret line="26" column="31" lean-forward="true" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
           <folding />
         </state>
       </provider>
