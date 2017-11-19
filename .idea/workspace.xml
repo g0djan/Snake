@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2d77382c-d1dc-4a19-971d-cf5266119413" name="Default" comment="undefined behavior bot near with walls and it still doesn't hunt">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Snake/ru/leoltron/snake/game/ClassicSnakeController.class" afterPath="$PROJECT_DIR$/out/production/Snake/ru/leoltron/snake/game/ClassicSnakeController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Snake/ru/leoltron/snake/game/GameField.class" afterPath="$PROJECT_DIR$/out/production/Snake/ru/leoltron/snake/game/GameField.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Snake/ru/leoltron/snake/game/entity/Bot.class" afterPath="$PROJECT_DIR$/out/production/Snake/ru/leoltron/snake/game/entity/Bot.class" />
+    <list default="true" id="2d77382c-d1dc-4a19-971d-cf5266119413" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -572,7 +569,7 @@
       <workItem from="1509527459095" duration="795000" />
       <workItem from="1509684601399" duration="6924000" />
       <workItem from="1510693912937" duration="952000" />
-      <workItem from="1511070087320" duration="4994000" />
+      <workItem from="1511070087320" duration="5028000" />
     </task>
     <task id="LOCAL-00001" summary="checking drawers">
       <created>1509469410541</created>
@@ -679,7 +676,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511076565014</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="undefined behavior bot near with walls and it still doesn't hunt">
+      <created>1511076657294</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1511076657294</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -697,7 +701,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29416000" />
+    <option name="totallyTimeSpent" value="29450000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1368" height="912" extended-state="0" />
